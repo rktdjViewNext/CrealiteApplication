@@ -1,22 +1,13 @@
 package com.crealite.crealiteapp.vista;
 
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.DrawableContainer;
-import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.core.content.res.ResourcesCompat;
 import com.crealite.crealiteapp.R;
-import com.google.android.material.button.MaterialButton;
-
-import java.nio.channels.Selector;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -43,9 +34,6 @@ public class AnadirServicioProyecto extends AppCompatActivity {
 
         spinner.setAdapter(arrayAdapter);
         
-        
-        
-        
         cambiarTipoDeServicioListener();
     }
 
@@ -59,40 +47,37 @@ public class AnadirServicioProyecto extends AppCompatActivity {
 
     private void cambiarTipoDeServicioListener() {
 
-        btnFotografia.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                btnFotografia.setBackground(getDrawable(R.drawable.orange2_button_bg));
-                btnFilmmaking.setBackground(getDrawable(R.drawable.orange_button_bg));
-                btnDiseno.setBackground(getDrawable(R.drawable.orange_button_bg));
+        btnFotografia.setOnClickListener(v -> {
 
-            }
+            //CAMBIAR COLOR FONDO BOTONES
+            cambiarColorBotones(btnFotografia,btnFilmmaking,btnDiseno);
         });
 
 
 
-        btnFilmmaking.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                btnFotografia.setBackground(getDrawable(R.drawable.orange_button_bg));
-                btnFilmmaking.setBackground(getDrawable(R.drawable.orange2_button_bg));
-                btnDiseno.setBackground(getDrawable(R.drawable.orange_button_bg));
-
-            }
+        btnFilmmaking.setOnClickListener(v -> {
+            //CAMBIAR COLOR FONDO BOTONES
+            cambiarColorBotones(btnFilmmaking,btnFotografia,btnDiseno);
         });
 
 
 
-        btnDiseno.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                btnFotografia.setBackground(getDrawable(R.drawable.orange_button_bg));
-                btnFilmmaking.setBackground(getDrawable(R.drawable.orange_button_bg));
-                btnDiseno.setBackground(getDrawable(R.drawable.orange2_button_bg));
-            }
+        btnDiseno.setOnClickListener(v -> {
+            //CAMBIAR COLOR FONDO BOTONES
+            cambiarColorBotones(btnDiseno,btnFotografia,btnFilmmaking);
         });
+    }
+
+    private void cambiarColorBotones(Button btnSelecionado, Button btnDeselecionado, Button btnDeselecionado2) {
+
+        //CAMBIAR COLOR DE FONDO
+        btnSelecionado.setBackground(ResourcesCompat.getDrawable(getResources(),R.drawable.orange2_button_bg,null));
+        btnDeselecionado.setBackground(ResourcesCompat.getDrawable(getResources(),R.drawable.orange_button_bg,null));
+        btnDeselecionado2.setBackground(ResourcesCompat.getDrawable(getResources(),R.drawable.orange_button_bg,null));
+        //CAMBIAR COLOR DEL TEXTO
+        btnSelecionado.setTextColor(ResourcesCompat.getColor(getResources(),R.color.orange,null));
+        btnDeselecionado.setTextColor(ResourcesCompat.getColor(getResources(),R.color.black,null));
+        btnDeselecionado2.setTextColor(ResourcesCompat.getColor(getResources(),R.color.black,null));
+
     }
 }

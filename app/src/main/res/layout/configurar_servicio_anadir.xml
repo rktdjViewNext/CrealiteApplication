@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            >
+
+            <View
+                android:layout_width="100dp"
+                android:layout_height="2dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="40dp"
+                android:background="@color/orange" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/arizonia"
+                android:gravity="center"
+                android:letterSpacing="0.1"
+                android:text="@string/crealite"
+                android:textColor="@color/orange"
+                android:textSize="25sp" />
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-5sp"
+                android:fontFamily="@font/roboto_light"
+                android:gravity="center"
+                android:letterSpacing="0.5"
+                android:text="@string/configurar_servicio"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                tools:ignore="TextSizeCheck" />
+
+            <View
+                android:layout_width="100dp"
+                android:layout_height="2dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@color/orange" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/roboto_bold"
+                android:gravity="center"
+                android:text="FECHA A REALIZAR"
+                android:textColor="@color/orange"
+                android:textSize="20sp"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:layout_width="120dp"
+                android:layout_height="2dp"
+                android:layout_gravity="center"
+                android:background="@color/orange"
+                tools:ignore="RtlHardcoded" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/edittext_bg"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btnFechaRealizar"
+                    android:layout_width="0dp"
+                    android:layout_height="58dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_weight="1"
+                    android:background="@color/black"
+                    android:contentDescription="@string/down"
+                    app:srcCompat="@drawable/ic_down_arrow" />
+
+                <TextView
+                    android:id="@+id/txtFechaRealizar"
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto_bold"
+                    android:gravity="center"
+                    android:text="@string/_02_05_2024"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/roboto_bold"
+                android:gravity="center"
+                android:text="HORA A REALIZAR"
+                android:textColor="@color/orange"
+                android:textSize="20sp"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:layout_width="120dp"
+                android:layout_height="2dp"
+                android:layout_gravity="center"
+                android:background="@color/orange"
+                tools:ignore="RtlHardcoded" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/edittext_bg"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/txtHora"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto_bold"
+                    android:gravity="right"
+                    android:text="@string/hora"
+                    android:textColor="@color/orange"
+                    tools:ignore="RtlHardcoded,TextContrastCheck" />
+
+                <Spinner
+                    android:id="@+id/spinnerHora"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+
+                    tools:ignore="TouchTargetSizeCheck" />
+
+                <TextView
+                    android:id="@+id/txtMin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto_bold"
+                    android:gravity="right"
+                    android:text="@string/min"
+                    android:textColor="@color/orange"
+                    tools:ignore="RtlHardcoded,TextContrastCheck" />
+
+                <Spinner
+                    android:id="@+id/spinnerMinutos"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    tools:ignore="TouchTargetSizeCheck" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/roboto_bold"
+                android:gravity="center"
+                android:text="PROVINCIA"
+                android:textColor="@color/orange"
+                android:textSize="20sp"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:layout_width="120dp"
+                android:layout_height="2dp"
+                android:layout_gravity="center"
+                android:background="@color/orange"
+                tools:ignore="RtlHardcoded" />
+
+            <Spinner
+                android:id="@+id/spinnerProvincia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/roboto_bold"
+                android:gravity="center"
+                android:text="LOCALIDAD"
+                android:textColor="@color/orange"
+                android:textSize="20sp"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:layout_width="120dp"
+                android:layout_height="2dp"
+                android:layout_gravity="center"
+                android:background="@color/orange"
+                tools:ignore="RtlHardcoded" />
+
+            <EditText
+                android:id="@+id/editTextLocalidad"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="32dp"
+                android:layout_weight="1"
+
+                android:background="@drawable/edittext_bg"
+                android:ems="10"
+                android:fontFamily="@font/roboto_bold"
+                android:hint="@string/localidad"
+                android:inputType="text"
+                android:letterSpacing="0.2"
+                android:textAlignment="center"
+                android:textColor="@color/grey_li"
+                android:textColorHint="@color/black"
+                tools:ignore="Autofill,InefficientWeight,TextContrastCheck,VisualLintTextFieldSize,DuplicateSpeakableTextCheck" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/roboto_bold"
+                android:gravity="center"
+                android:text="FECHA DE ENTREGA"
+                android:textColor="@color/orange"
+                android:textSize="20sp"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:layout_width="120dp"
+                android:layout_height="2dp"
+                android:layout_gravity="center"
+                android:background="@color/orange"
+                tools:ignore="RtlHardcoded" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/edittext_bg"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btnFechaEntrega"
+                    android:layout_width="0dp"
+                    android:layout_height="58dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_weight="1"
+                    android:background="@color/black"
+                    android:contentDescription="@string/down"
+                    app:srcCompat="@drawable/ic_down_arrow" />
+
+                <TextView
+                    android:id="@+id/txtFechaEntrega"
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto_bold"
+                    android:gravity="center"
+                    android:text="@string/_02_05_2024"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/roboto_bold"
+                android:gravity="center"
+                android:text="DESCRIPCION"
+                android:textColor="@color/orange"
+                android:textSize="20sp"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:layout_width="120dp"
+                android:layout_height="2dp"
+                android:layout_gravity="center"
+                android:background="@color/orange"
+                tools:ignore="RtlHardcoded" />
+
+
+            <EditText
+                android:id="@+id/editTextDescripcion"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:padding="10sp"
+                android:layout_weight="1"
+                android:background="@drawable/edittext_bg"
+                android:ems="10"
+                android:fontFamily="@font/roboto_bold"
+                android:hint="@string/localidad"
+                android:inputType="text"
+                android:textSize="15sp"
+                android:textColor="@color/orange"
+                android:textColorHint="@color/black"
+                tools:ignore="Autofill,InefficientWeight,TextContrastCheck,VisualLintTextFieldSize,DuplicateSpeakableTextCheck" />
+        </LinearLayout>
+    </ScrollView>
+
+
+
+</LinearLayout>

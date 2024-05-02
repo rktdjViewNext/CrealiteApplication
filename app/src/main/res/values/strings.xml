@@ -26,4 +26,10 @@
     <string name="fotografia">FOTOGRAFIA</string>
     <string name="filmmaking">FILMMAKING</string>
     <string name="dise_o">DISEÑO</string>
+    <string name="configurar_servicio">CONFIGURAR SERVICIO</string>
+    <string name="down">down spinner\n</string>
+    <string name="_02_05_2024">02-05-2024</string>
+    <string name="hora">Hora:</string>
+    <string name="min">Min:</string>
+    <string name="localidad">LOCALIDAD</string>
 </resources>
