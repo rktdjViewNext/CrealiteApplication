@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/black">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <View
+            android:layout_width="100dp"
+            android:layout_height="2dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="100dp"
+            android:background="@color/orange" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/arizonia"
+            android:gravity="center"
+            android:letterSpacing="0.1"
+            android:text="@string/crealite"
+            android:textColor="@color/orange"
+            android:textSize="25sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-5sp"
+            android:fontFamily="@font/roboto_light"
+            android:gravity="center"
+            android:letterSpacing="0.5"
+            android:text="@string/a_adir_servicio"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <View
+            android:layout_width="100dp"
+            android:layout_height="2dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@color/orange" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnServicioFilmmakingAdd"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/orange_button_bg"
+            android:fontFamily="@font/roboto_bold"
+            android:stateListAnimator="@android:anim/fade_in"
+            android:text="@string/filmmaking"
+            android:textColor="@color/black"
+            tools:ignore="TextContrastCheck" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnServicioFotografiaAdd"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/orange2_button_bg"
+            android:fontFamily="@font/roboto_bold"
+            android:stateListAnimator="@android:anim/fade_in"
+            android:text="@string/fotografia"
+            android:textColor="@color/orange"
+            tools:ignore="TextContrastCheck" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnServicioDisenoAdd"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/orange_button_bg"
+            android:stateListAnimator="@android:anim/fade_in"
+            android:text="@string/dise_o"
+            android:textColor="@color/black"
+            tools:ignore="TextContrastCheck" />
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/AddServicio"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/orange_button_bg"
+            android:stateListAnimator="@android:anim/fade_in"
+            android:text="@string/a_adir_servicio"
+            tools:ignore="TextContrastCheck,DuplicateSpeakableTextCheck" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

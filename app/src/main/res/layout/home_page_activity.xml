@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imagenDePerfil"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="40dp"
+                android:background="@color/grey"
+                android:padding="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/circular"
+                app:srcCompat="@drawable/baseline_person_24"
+                app:strokeColor="@color/orange"
+                app:strokeWidth="5dp"
+                tools:ignore="ImageContrastCheck" />
+
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btnCambiarFotoPerfil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:contentDescription="@string/cambiarFotoPerfil"
+                android:focusable="true"
+                android:tint="@color/black"
+                app:backgroundTint="@color/orange"
+                app:layout_constraintBottom_toBottomOf="@+id/imagenDePerfil"
+                app:layout_constraintEnd_toEndOf="@+id/imagenDePerfil"
+                app:rippleColor="@color/black"
+                app:srcCompat="@drawable/baseline_camera_alt_24"
+                tools:ignore="ImageContrastCheck" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imagenDePerfil"
+                app:layout_constraintVertical_bias="0.0">
+
+                <TextView
+                    android:id="@+id/txtNombreUsuario"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:gravity="center"
+                    android:text="NOMBRE USUARIO"
+                    android:textColor="@color/white"
+                    android:textSize="27sp"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/txtNumProyectosEncurso"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:gravity="center"
+                    android:letterSpacing="0.3"
+                    android:text="5 PROYECTOS EN CURSO"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    tools:ignore="HardcodedText" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnRealizarProyecto"
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/orange_button_bg"
+                    android:stateListAnimator="@android:anim/fade_in"
+                    android:text="@string/realizar_proyecto"
+                    tools:ignore="TextContrastCheck" />
+
+                <View
+                    android:layout_width="100dp"
+                    android:layout_height="2dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/orange" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:gravity="center"
+                    android:text="ÚLTIMOS PROYECTOS"
+                    android:textColor="@color/orange"
+                    android:textSize="25sp"
+                    tools:ignore="HardcodedText" />
+
+                <View
+                    android:layout_width="100dp"
+                    android:layout_height="2dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/orange" />
+
+                <LinearLayout
+                    android:layout_width="320dp"
+                    android:layout_height="420dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="30dp"
+                    android:background="@drawable/orange_button_bg"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/btnUltimoproyecto1"
+                        android:layout_width="300dp"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/edittext_bg"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        tools:ignore="TextSizeCheck,DuplicateSpeakableTextCheck">
+
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20sp"
+                            android:layout_weight="1"
+                            android:text="26-04-2024  |  5 Servicio/s  |  Finalizado "
+                            android:textSize="12sp"
+                            tools:ignore="HardcodedText,TextContrastCheck" />
+
+                        <ImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="10sp"
+                            android:layout_height="20sp"
+                            android:layout_marginStart="10sp"
+                            android:layout_marginEnd="30sp"
+                            android:layout_weight="1"
+                            android:contentDescription="@string/informacion_proyectos"
+                            app:srcCompat="@android:drawable/ic_dialog_info" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/btnUltimoproyecto2"
+                        android:layout_width="300dp"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edittext_bg"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        tools:ignore="TextSizeCheck">
+
+                        <TextView
+                            android:id="@+id/txtUltimoProyecto2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20sp"
+                            android:layout_weight="1"
+                            android:text="26-04-2024  |  5 Servicio/s  |  Finalizado "
+                            android:textSize="12sp"
+                            tools:ignore="HardcodedText,TextContrastCheck" />
+
+                        <ImageView
+                            android:id="@+id/info2"
+                            android:layout_width="10sp"
+                            android:layout_height="20sp"
+                            android:layout_marginStart="10sp"
+                            android:layout_marginEnd="30sp"
+                            android:layout_weight="1"
+                            android:contentDescription="@string/informacion_proyectos"
+                            app:srcCompat="@android:drawable/ic_dialog_info" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/btnUltimoproyecto3"
+                        android:layout_width="300dp"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edittext_bg"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        tools:ignore="TextSizeCheck"
+                        android:focusable="true">
+
+                        <TextView
+                            android:id="@+id/txtUltimoProyecto3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20sp"
+                            android:layout_weight="1"
+                            android:text="26-04-2024  |  5 Servicio/s  |  Finalizado "
+                            android:textSize="12sp"
+                            tools:ignore="HardcodedText,TextContrastCheck" />
+
+                        <ImageView
+                            android:id="@+id/info3"
+                            android:layout_width="10sp"
+                            android:layout_height="20sp"
+                            android:layout_marginStart="10sp"
+                            android:layout_marginEnd="30sp"
+                            android:layout_weight="1"
+                            android:contentDescription="@string/informacion_proyectos"
+                            app:srcCompat="@android:drawable/ic_dialog_info" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/btnUltimoproyecto4"
+                        android:layout_width="300dp"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edittext_bg"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        tools:ignore="TextSizeCheck">
+
+                        <TextView
+                            android:id="@+id/txtUltimoProyecto4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20sp"
+                            android:layout_weight="1"
+                            android:text="26-04-2024  |  5 Servicio/s  |  Finalizado "
+                            android:textSize="12sp"
+                            tools:ignore="HardcodedText,TextContrastCheck" />
+
+                        <ImageView
+                            android:id="@+id/info4"
+                            android:layout_width="10sp"
+                            android:layout_height="20sp"
+                            android:layout_marginStart="10sp"
+                            android:layout_marginEnd="30sp"
+                            android:layout_weight="1"
+                            android:contentDescription="@string/informacion_proyectos"
+                            app:srcCompat="@android:drawable/ic_dialog_info" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/btnUltimoproyecto5"
+                        android:layout_width="300dp"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edittext_bg"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        tools:ignore="TextSizeCheck"
+                        android:focusable="true">
+
+                        <TextView
+                            android:id="@+id/txtUltimoProyecto5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20sp"
+                            android:layout_weight="1"
+                            android:text="26-04-2024  |  5 Servicio/s  |  Finalizado "
+                            android:textSize="12sp"
+                            tools:ignore="HardcodedText,TextContrastCheck" />
+
+                        <ImageView
+                            android:id="@+id/info5"
+                            android:layout_width="10sp"
+                            android:layout_height="20sp"
+                            android:layout_marginStart="10sp"
+                            android:layout_marginEnd="30sp"
+                            android:layout_weight="1"
+                            android:contentDescription="@string/informacion_proyectos"
+                            app:srcCompat="@android:drawable/ic_dialog_info" />
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnVerProyectos"
+                        style="@style/Widget.AppCompat.Button"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@drawable/edittext_bg"
+                        android:stateListAnimator="@android:anim/fade_in"
+                        android:text="@string/ver_proyectos"
+                        android:textColor="@color/orange"
+                        tools:ignore="TextContrastCheck" />
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="100dp"
+                    android:layout_height="2dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/orange" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/arizonia"
+                    android:gravity="center"
+                    android:letterSpacing="0.1"
+                    android:text="@string/crealite"
+                    android:textColor="@color/orange"
+                    android:textSize="25sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-5sp"
+                    android:fontFamily="@font/roboto_light"
+                    android:gravity="center"
+                    android:letterSpacing="0.5"
+                    android:text="SERVICIOS"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    tools:ignore="HardcodedText" />
+
+                <View
+                    android:layout_width="100dp"
+                    android:layout_height="2dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/orange" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:gravity="start"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="40dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:gravity="start"
+                        android:text="FOTOGRAFIA"
+                        android:textColor="@color/orange"
+                        android:textSize="27sp"
+                        tools:ignore="HardcodedText" />
+
+                    <View
+                        android:layout_width="170dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="left"
+                        android:background="@color/orange"
+                        tools:ignore="RtlHardcoded" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:fontFamily="@font/roboto_light"
+                        android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries"
+                        android:textColor="@color/white"
+                        android:textSize="15sp"
+                        tools:ignore="HardcodedText,RtlHardcoded,VisualLintLongText" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:gravity="start"
+                        android:text="FILMMAKING"
+                        android:textColor="@color/orange"
+                        android:textSize="27sp"
+                        tools:ignore="HardcodedText" />
+
+                    <View
+                        android:layout_width="170dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="left"
+                        android:background="@color/orange"
+                        tools:ignore="RtlHardcoded" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:fontFamily="@font/roboto_light"
+                        android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries"
+                        android:textColor="@color/white"
+                        android:textSize="15sp"
+                        tools:ignore="HardcodedText,RtlHardcoded,VisualLintLongText" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:gravity="start"
+                        android:text="DISEÑO"
+                        android:textColor="@color/orange"
+                        android:textSize="27sp"
+                        tools:ignore="HardcodedText" />
+
+                    <View
+                        android:layout_width="100dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="left"
+                        android:background="@color/orange"
+                        tools:ignore="RtlHardcoded" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:fontFamily="@font/roboto_light"
+                        android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries"
+                        android:textColor="@color/white"
+                        android:textSize="15sp"
+                        tools:ignore="HardcodedText,RtlHardcoded,VisualLintLongText" />
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnRealizarProyecto2"
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/orange_button_bg"
+                    android:stateListAnimator="@android:anim/fade_in"
+                    android:text="@string/realizar_proyecto"
+                    tools:ignore="TextContrastCheck" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

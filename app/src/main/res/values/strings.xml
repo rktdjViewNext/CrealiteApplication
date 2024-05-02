@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">CrealiteApp</string>
+    <string name="circlebg">circlebg</string>
+    <string name="crealite">CREALITE</string>
+    <string name="crea_la_elite">CREA LA ELITE</string>
+    <string name="txt_usuario">Usuario</string>
+    <string name="txt_contrasena">Contraseña</string>
+    <string name="login">LOGIN</string>
+    <string name="crealite2">Crealite</string>
+    <string name="registro">REGISTRO</string>
+    <string name="nombre">Nombre</string>
+    <string name="apellido">Apellido</string>
+    <string name="e_mail">E-Mail</string>
+    <string name="oficio">Oficio</string>
+    <string name="fecha_de_nacimiento">Fecha de Nacimiento</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="cambiarFotoPerfil">CambiarFotoDePerfil</string>
+    <string name="realizar_proyecto">REALIZAR PROYECTO</string>
+    <string name="ver_proyectos">VER PROYECTOS</string>
+    <string name="informacion_proyectos">informacion proyectos</string>
+    <string name="nuevo_proyecto">NUEVO PROYECTO</string>
+    <string name="nombre_del_proyecto">NOMBRE DEL PROYECTO</string>
+    <string name="servicios_a_contratar">SERVICIOS A CONTRATAR</string>
+    <string name="AddServce">Añadir Servicio para contratar\n</string>
+    <string name="a_adir_servicio">AÑADIR SERVICIO</string>
+    <string name="fotografia">FOTOGRAFIA</string>
+    <string name="filmmaking">FILMMAKING</string>
+    <string name="dise_o">DISEÑO</string>
+</resources>

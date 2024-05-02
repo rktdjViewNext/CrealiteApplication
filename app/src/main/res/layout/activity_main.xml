@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:background="@color/black"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="209dp">
+
+            <TextView
+                android:id="@+id/crealiteTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="68dp"
+                android:fontFamily="@font/arizonia"
+                android:gravity="center"
+                android:letterSpacing="0.1"
+                android:text="Crealite"
+                android:textColor="@color/orange"
+                android:textSize="55sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/sloganTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="128dp"
+                android:letterSpacing="1"
+                android:text="@string/crea_la_elite"
+                android:textColor="@color/orange"
+                android:textColorLink="@color/orange"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtLogin"
+                android:layout_width="match_parent"
+                android:layout_height="66dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/anton"
+                android:gravity="center"
+                android:letterSpacing="0.2"
+                android:text="@string/login"
+                android:textColor="@color/orange"
+                android:textSize="44sp"
+                tools:ignore="TextSizeCheck" />
+
+            <View
+                android:layout_width="87dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="4dp"
+                android:layout_gravity="center"
+                android:background="@color/orange" />
+
+            <EditText
+                android:id="@+id/editTextUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="32dp"
+                android:autofillHints="Usuario"
+                android:background="@drawable/edittext_bg"
+                android:ems="10"
+                android:fontFamily="@font/roboto_bold"
+                android:hint="@string/txt_usuario"
+                android:inputType="text"
+                android:letterSpacing="0.2"
+                android:textAlignment="center"
+                android:textColor="@color/grey_li"
+                android:textColorHint="@color/black"
+                tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
+
+            <EditText
+                android:id="@+id/editTextContrasena"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="32dp"
+                android:autofillHints="Usuario"
+                android:background="@drawable/edittext_bg"
+                android:ems="10"
+                android:fontFamily="@font/roboto_bold"
+                android:hint="@string/txt_contrasena"
+                android:inputType="textPassword"
+                android:letterSpacing="0.2"
+                android:textAlignment="center"
+                android:textColor="@color/grey_li"
+                android:textColorHint="@color/black"
+                tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
+
+            <LinearLayout
+                android:id="@+id/txtlogin"
+                android:layout_width="350dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="7dp"
+                android:orientation="horizontal"
+                tools:ignore="TextSizeCheck">
+
+                <TextView
+                    android:id="@+id/textViewOlvidarPass"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="¿Has olvidado tu contraseña?"
+                    android:textColor="@color/orange"
+                    android:textSize="12sp"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/textViewRegistrarme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Registrarme"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/orange"
+                    tools:ignore="HardcodedText" />
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/orange_button_bg"
+                android:layout_width="310dp"
+                android:layout_height="wrap_content"
+                android:text="Iniciar Sesion" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
