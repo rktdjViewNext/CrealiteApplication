@@ -6,142 +6,189 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/black">
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
+    <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <View
-            android:layout_width="100dp"
-            android:layout_height="2dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="40dp"
-            android:background="@color/orange" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/arizonia"
-            android:gravity="center"
-            android:letterSpacing="0.1"
-            android:text="@string/crealite"
-            android:textColor="@color/orange"
-            android:textSize="25sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="-5sp"
-            android:fontFamily="@font/roboto_light"
-            android:gravity="center"
-            android:letterSpacing="0.5"
-            android:text="@string/nuevo_proyecto"
-            android:textColor="@color/white"
-            android:textSize="15sp" />
-
-        <View
-            android:layout_width="100dp"
-            android:layout_height="2dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:background="@color/orange" />
-
-        <TextView
-            android:id="@+id/txtNombreUsuario"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/roboto_bold"
-            android:gravity="center"
-            android:text="@string/nombre_del_proyecto"
-            android:textColor="@color/white"
-            android:textSize="23sp" />
-
-        <View
-            android:layout_width="100dp"
-            android:layout_height="2dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:background="@color/orange" />
-
-        <EditText
-            android:id="@+id/editTextNombreProyecto"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="32dp"
-            android:autofillHints="NOMBRE"
-            android:background="@drawable/edittext_bg"
-            android:ems="10"
-            android:fontFamily="@font/roboto_bold"
-            android:hint="@string/nombre"
-            android:inputType="text"
-            android:letterSpacing="0.2"
-            android:textAlignment="center"
-            android:textColor="@color/grey_li"
-            android:textColorHint="@color/grey_li"
-            tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:fontFamily="@font/roboto_bold"
-            android:gravity="center"
-            android:text="@string/servicios_a_contratar"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-        <ListView
-            android:id="@+id/listaSeviciosAContratar"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="30dp"
-            android:divider="@color/transparent"
-            android:dividerHeight="10.0sp"
-            android:scrollbars="vertical"
-            tools:listitem="@layout/list_item"
-            />
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="100dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <ImageButton
-                android:id="@+id/addService"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="20dp"
-                android:contentDescription="@string/AddServce"
-                app:srcCompat="@drawable/add"
-                android:layout_marginEnd="20dp"
-                tools:ignore="ImageContrastCheck,VisualLintBounds" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp">
 
-            <ImageButton
-                android:id="@+id/solicitarPresupuesto"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                <ImageButton
+                    android:id="@+id/imageButton"
+                    android:layout_width="60dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/trasparent_background"
+                    android:contentDescription="@string/back"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
+                    app:layout_constraintHorizontal_bias="0.04"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.00999999"
+                    app:srcCompat="@drawable/baseline_arrow_back_24" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayout3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.64">
+
+                    <View
+                        android:layout_width="100dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="40dp"
+                        android:background="@color/orange" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/arizonia"
+                        android:gravity="center"
+                        android:letterSpacing="0.1"
+                        android:text="@string/crealite"
+                        android:textColor="@color/orange"
+                        android:textSize="25sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-5sp"
+                        android:fontFamily="@font/roboto_light"
+                        android:gravity="center"
+                        android:letterSpacing="0.5"
+                        android:text="@string/nuevo_proyecto"
+                        android:textColor="@color/white"
+                        android:textSize="15sp" />
+
+                    <View
+                        android:layout_width="100dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/orange" />
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/txtNombreUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:layout_weight="1"
-                android:contentDescription="@string/AddServce"
-                app:srcCompat="@drawable/baseline_check_circle_24"
-                tools:ignore="ImageContrastCheck,VisualLintBounds" />
+                android:fontFamily="@font/roboto_bold"
+                android:gravity="center"
+                android:text="@string/nombre_del_proyecto"
+                android:textColor="@color/white"
+                android:textSize="23sp" />
+
+            <View
+                android:layout_width="100dp"
+                android:layout_height="2dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@color/orange" />
+
+            <EditText
+                android:id="@+id/editTextNombreProyecto"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="32dp"
+                android:autofillHints="NOMBRE"
+                android:background="@drawable/edittext_bg"
+                android:ems="10"
+                android:fontFamily="@font/roboto_bold"
+                android:hint="@string/nombre"
+                android:inputType="text"
+                android:letterSpacing="0.2"
+                android:textAlignment="center"
+                android:textColor="@color/grey_li"
+                android:textColorHint="@color/grey_li"
+                tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/roboto_bold"
+                android:gravity="center"
+                android:text="@string/servicios_a_contratar"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <ListView
+                android:id="@+id/listaSeviciosAContratar"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="150dp"
+                android:divider="@color/transparent"
+                android:dividerHeight="10.0sp"
+                android:scrollbars="vertical"
+                tools:ignore="NestedScrolling"
+                tools:listitem="@layout/list_item" />
+
         </LinearLayout>
+    </ScrollView>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/scrollView2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.96">
+
+        <ImageButton
+            android:id="@+id/addService"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:contentDescription="@string/AddServce"
+            app:srcCompat="@drawable/add"
+            tools:ignore="ImageContrastCheck,VisualLintBounds" />
+
+        <ImageButton
+            android:id="@+id/solicitarPresupuesto"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:contentDescription="@string/AddServce"
+            app:srcCompat="@drawable/baseline_check_circle_24"
+            tools:ignore="ImageContrastCheck,VisualLintBounds" />
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

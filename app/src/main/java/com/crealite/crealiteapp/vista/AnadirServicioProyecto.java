@@ -22,19 +22,17 @@ public class AnadirServicioProyecto extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.anadir_servicio_proyecto);
 
-
-
         initComponents();
+        cargaDatosSpinnerServicios();
+        cambiarTipoDeServicioListener();
+    }
 
-
-
+    private void cargaDatosSpinnerServicios() {
         String [] value = {"BODA", "COMUNION", "STREET", "DJ", "FESTIVAL","DISCOTECA","PRODUCTO","BODA", "COMUNION", "STREET", "DJ", "FESTIVAL","DISCOTECA","PRODUCTO"};
         ArrayList<String> arrayList = new ArrayList<>(Arrays.asList(value));
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this,R.layout.style_spinner,arrayList);
 
         spinner.setAdapter(arrayAdapter);
-        
-        cambiarTipoDeServicioListener();
     }
 
     private void initComponents() {

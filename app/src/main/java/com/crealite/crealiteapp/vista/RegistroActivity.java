@@ -44,7 +44,7 @@ public class RegistroActivity extends AppCompatActivity {
                 datePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Long>() {
                     @Override
                     public void onPositiveButtonClick(Long selection) {
-                              String date=  new SimpleDateFormat("MM-dd-yyy", Locale.getDefault()).format(new Date(selection));
+                              String date=  new SimpleDateFormat("dd-MM-yyy", Locale.getDefault()).format(new Date(selection));
                               String[] separarFecha = date.split("-");
                         LocalDate date2 = null;
                         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
