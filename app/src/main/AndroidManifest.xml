@@ -59,7 +59,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".vista.proyectViewActivity"
+        <activity android:name=".vista.ProyectViewActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -6,13 +6,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/black">
 
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <LinearLayout
             android:id="@+id/linearLayout2"
+            android:layout_marginTop="90dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="100dp"
@@ -28,19 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp">
 
-                <ImageButton
-                    android:id="@+id/imageButton"
-                    android:layout_width="60dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/trasparent_background"
-                    android:contentDescription="@string/back"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
-                    app:layout_constraintHorizontal_bias="0.04"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.00999999"
-                    app:srcCompat="@drawable/baseline_arrow_back_24" />
+
 
                 <LinearLayout
                     android:id="@+id/linearLayout3"
@@ -92,6 +77,21 @@
                         android:layout_marginTop="10dp"
                         android:background="@color/orange" />
                 </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/btnBack"
+                    android:layout_width="60dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/trasparent_background"
+                    android:contentDescription="@string/back"
+                    android:onClick="IniciarSesion"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
+                    app:layout_constraintHorizontal_bias="0.04"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.23000002"
+                    app:srcCompat="@drawable/baseline_arrow_back_24" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -157,7 +157,7 @@
                 tools:listitem="@layout/list_item" />
 
         </LinearLayout>
-    </ScrollView>
+
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -165,26 +165,28 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/scrollView2"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.96">
 
         <ImageButton
-            android:id="@+id/addService"
+            android:id="@+id/btnAddServiceUnico"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
+            android:clickable="true"
             android:contentDescription="@string/AddServce"
             app:srcCompat="@drawable/add"
-            tools:ignore="ImageContrastCheck,VisualLintBounds" />
+            tools:ignore="ImageContrastCheck,VisualLintBounds,DuplicateSpeakableTextCheck" />
 
         <ImageButton
-            android:id="@+id/solicitarPresupuesto"
+            android:id="@+id/btnSolicitarPresupuestoUnico"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginTop="20dp"
             android:layout_weight="1"
+            android:clickable="true"
             android:contentDescription="@string/AddServce"
             app:srcCompat="@drawable/baseline_check_circle_24"
             tools:ignore="ImageContrastCheck,VisualLintBounds" />

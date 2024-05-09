@@ -42,6 +42,7 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation ("com.github.dhaval2404:imagepicker:2.1")
     implementation(libs.legacy.support.v4)
+    implementation(libs.filament.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

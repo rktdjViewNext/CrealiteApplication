@@ -54,4 +54,6 @@
     <string name="todo">TODO</string>
     <string name="profesionales">Profesionales</string>
     <string name="btnmenu">btnMenu</string>
+    <string name="estado_del_proyecto">ESTADO DEL PROYECTO</string>
+    <string name="_26_04_2024">26-04-2024</string>
 </resources>

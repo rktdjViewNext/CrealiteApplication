@@ -1,8 +1,12 @@
 package com.crealite.crealiteapp.vista;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,10 +21,11 @@ import java.util.ArrayList;
 
 public class NewProyectActivity extends AppCompatActivity {
 
-    NewProyectActivityBinding binding;
+    ListView listaServiciosAcontratar;
     ListAdapter listAdapter;
     Servicio s;
     ArrayList<Servicio> servicios = new ArrayList<>();
+    ImageButton btnBack, btnAddService, btnSolcitarPresupuesto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +33,47 @@ public class NewProyectActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.new_proyect_activity);
 
-        binding = NewProyectActivityBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        initComponents();
+        cargarServiciosAcontratar();
+        listeners();
+
+
+
+
+    }
+
+    private void listeners() {
+        //PULSAR AÑADIR SERVICIO
+        btnAddService.setOnClickListener(v -> {
+            System.out.println("hola");
+            Intent intent = new Intent(NewProyectActivity.this, AnadirServicioProyecto.class);
+            startActivity(intent);
+        });
+
+        //PULSAR CONFIRMAR PROYECTO
+        btnSolcitarPresupuesto.setOnClickListener(v -> {
+            System.out.println("hulaa");
+            Intent intent = new Intent(NewProyectActivity.this, ProyectViewActivity.class);
+            startActivity(intent);
+        });
+    }
+
+
+    public void IniciarSesion(View view){
+        System.out.println("adios");
+        Intent intent = new Intent(NewProyectActivity.this, HomePageActivity.class);
+        startActivity(intent);
+    }
+    private void initComponents() {
+        btnBack = findViewById(R.id.btnBack);
+        btnAddService = findViewById(R.id.btnAddServiceUnico);
+        btnSolcitarPresupuesto = findViewById(R.id.btnSolicitarPresupuestoUnico);
+        listaServiciosAcontratar = findViewById(R.id.listaSeviciosAContratar);
+
+
+    }
+
+    private void cargarServiciosAcontratar() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             s = new Servicio("Servicio Fotografia", LocalDate.of(2024,2,11));
@@ -50,8 +94,7 @@ public class NewProyectActivity extends AppCompatActivity {
 
 
         listAdapter = new listServicioAdapter(NewProyectActivity.this,servicios);
-        binding.listaSeviciosAContratar.setAdapter(listAdapter);
-        binding.listaSeviciosAContratar.setClickable(true);
-
+        listaServiciosAcontratar.setAdapter(listAdapter);
+        listaServiciosAcontratar.setClickable(true);
     }
 }

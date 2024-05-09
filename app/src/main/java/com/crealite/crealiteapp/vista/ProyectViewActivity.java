@@ -1,13 +1,10 @@
 package com.crealite.crealiteapp.vista;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
@@ -18,7 +15,7 @@ import com.crealite.crealiteapp.vista.Fragmentos.Fragmento3;
 import com.crealite.crealiteapp.vista.Fragmentos.VPAdapter;
 import com.google.android.material.tabs.TabLayout;
 
-public class proyectViewActivity extends AppCompatActivity {
+public class ProyectViewActivity extends AppCompatActivity {
 
     private TabLayout tableLayout;
     private ViewPager viewPager;
