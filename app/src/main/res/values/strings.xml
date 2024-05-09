@@ -35,8 +35,23 @@
     <string name="descripci_n">Descripción</string>
     <string name="horas_a_contratar">HORAS A CONTRATAR</string>
     <string name="back">back\n</string>
+    <string name="navigation_drawe_open">Open navigation drawer</string>
+    <string name="navigation_drawe_close">Close navigation drawer</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="servicios">Servicios</string>
     <string name="ProyectoView">Detalles del proyecto\n</string>
+    <string name="progreso">Progreso</string>
+    <string name="chat">Chat</string>
+    <string name="tel_fono">Teléfono</string>
+    <string name="horas">Horas:</string>
+    <string name="don_benito_badajoz">DON BENITO, BADAJOZ</string>
+    <string name="boda">BODA</string>
+    <string name="primer_pago">PRIMER PAGO</string>
+    <string name="presuspuesto_pendiente">*Presuspuesto Pendiente*</string>
+    <string name="asignando_trabajadores">ASIGNANDO TRABAJADORES</string>
+    <string name="todo">TODO</string>
+    <string name="profesionales">Profesionales</string>
+    <string name="btnmenu">btnMenu</string>
 </resources>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:title="home"
+            android:icon="@drawable/baseline_deck_24"
+            />
+        <item
+            android:id="@+id/nav_nuevo_proyecto"
+            android:title="Nuevo Proyecto"
+            android:icon="@drawable/baseline_deck_24"/>
+        <item
+            android:id="@+id/nav_mis_pedidos"
+            android:title="Mis Pedidos"
+            android:icon="@drawable/baseline_deck_24"/>
+    </group>
+
+
+    <group android:checkableBehavior="single">
+        <item android:title="Perfil">
+            <menu>
+                <item
+                    android:id="@+id/nav_mi_perfil"
+                    android:title="Mi Perfil"
+                    android:icon="@drawable/baseline_deck_24"/>
+                <item
+                    android:id="@+id/nav_logout"
+                    android:title="Cerrar Sesión"
+                    android:icon="@drawable/baseline_deck_24"/>
+            </menu>
+        </item>
+    </group>
+    <group android:checkableBehavior="single">
+        <item android:title="Contáctanos">
+            <menu>
+                <item
+                    android:id="@+id/nav_telefono"
+                    android:title="Teléfono"
+                    android:icon="@drawable/baseline_deck_24"/>
+                <item
+                    android:id="@+id/nav_instagram"
+                    android:title="Instagram"
+                    android:icon="@drawable/baseline_deck_24"/>
+                <item
+                    android:id="@+id/nav_correo"
+                    android:title="E-Mail"
+                    android:icon="@drawable/baseline_deck_24"/>
+
+            </menu>
+        </item>
+
+
+    </group>
+</menu>

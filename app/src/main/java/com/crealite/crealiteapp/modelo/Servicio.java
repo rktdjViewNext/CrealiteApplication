@@ -7,6 +7,7 @@ public class Servicio {
     private String tipo;
     private LocalDate fecha;
 
+
     public Servicio(String tipo, LocalDate fecha) {
         this.tipo = tipo;
         this.fecha = fecha;

@@ -147,7 +147,7 @@
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/button"
+                android:id="@+id/btnLogin"
                 style="@style/Widget.AppCompat.Button"
                 android:layout_marginTop="32dp"
                 android:background="@drawable/orange_button_bg"

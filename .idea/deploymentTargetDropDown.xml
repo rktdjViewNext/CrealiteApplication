@@ -2,12 +2,6 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="AnadirServicioProyecto">
-        <State />
-      </entry>
-      <entry key="ConfigurarServicioAnadir">
-        <State />
-      </entry>
       <entry key="HomePageActivity">
         <State>
           <targetSelectedWithDropDown>
@@ -24,7 +18,13 @@
           <timeTargetWasSelectedWithDropDown value="2024-04-29T14:21:27.042804500Z" />
         </State>
       </entry>
+      <entry key="MainActivity">
+        <State />
+      </entry>
       <entry key="NewProyectActivity">
+        <State />
+      </entry>
+      <entry key="RegistroActivity">
         <State />
       </entry>
       <entry key="app">

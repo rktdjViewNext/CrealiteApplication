@@ -7,12 +7,18 @@
     tools:context=".vista.Fragmentos.Fragmento1">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ListView
+        android:id="@+id/lvSeviciosContratados"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="FRAGMENTO1"
-        android:textSize="40sp" />
+        android:layout_height="370dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="150dp"
+        android:divider="@color/transparent"
+        android:dividerHeight="10.0sp"
+        android:scrollbars="vertical"
+        tools:ignore="NestedScrolling"
+        tools:listitem="@layout/list_item_servicio_contratado" />
 
 </FrameLayout>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:background="@color/grey"
+    android:gravity="bottom">
+
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="150dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:background="@color/orange" />
+
+        <TextView
+            android:id="@+id/crealiteTitle2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-10dp"
+            android:fontFamily="@font/arizonia"
+            android:gravity="center"
+            android:letterSpacing="0.1"
+            android:text="@string/crealite2"
+            android:textColor="@color/orange"
+            android:textSize="55sp"/>
+
+        <TextView
+            android:id="@+id/sloganTitle2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-15dp"
+            android:letterSpacing="1"
+            android:text="@string/registro"
+            android:textAlignment="center"
+            android:textColor="@color/orange"
+            android:textColorLink="@color/orange"
+            android:textSize="12sp"
+            />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="150dp"
+            android:layout_height="2dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="30dp"
+            android:background="@color/orange" />
+
+</LinearLayout>

@@ -1,6 +1,8 @@
 package com.crealite.crealiteapp.vista;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +23,7 @@ public class proyectViewActivity extends AppCompatActivity {
     private TabLayout tableLayout;
     private ViewPager viewPager;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,14 +33,11 @@ public class proyectViewActivity extends AppCompatActivity {
 
         tableLayout = findViewById(R.id.tablayout);
         viewPager = findViewById(R.id.viewPage);
-
-
         tableLayout.setupWithViewPager(viewPager);
         VPAdapter vpAdapter = new VPAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        vpAdapter.addFrament( new Fragmento1(),"Estado");
-        vpAdapter.addFrament( new Fragmento2(), "Detalles");
-        vpAdapter.addFrament( new Fragmento3(),"Chat");
-
+        vpAdapter.addFrament( new Fragmento1(),"Servicios");
+        vpAdapter.addFrament( new Fragmento2(), "Proceso");
+        vpAdapter.addFrament( new Fragmento3(),"Presupuesto");
 
         viewPager.setAdapter(vpAdapter);
 
