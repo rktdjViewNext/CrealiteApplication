@@ -84,7 +84,7 @@
                     android:layout_height="50dp"
                     android:background="@drawable/trasparent_background"
                     android:contentDescription="@string/back"
-                    android:onClick="IniciarSesion"
+                    android:onClick="backAction"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
                     app:layout_constraintHorizontal_bias="0.04"
@@ -93,10 +93,12 @@
                     app:layout_constraintVertical_bias="0.23000002"
                     app:srcCompat="@drawable/baseline_arrow_back_24" />
 
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/txtNombreUsuario"
+                android:id="@+id/txtNombreProyecto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -178,7 +180,8 @@
             android:clickable="true"
             android:contentDescription="@string/AddServce"
             app:srcCompat="@drawable/add"
-            tools:ignore="ImageContrastCheck,VisualLintBounds,DuplicateSpeakableTextCheck" />
+            tools:ignore="ImageContrastCheck,VisualLintBounds,DuplicateSpeakableTextCheck"
+            android:focusable="true" />
 
         <ImageButton
             android:id="@+id/btnSolicitarPresupuestoUnico"
@@ -189,7 +192,8 @@
             android:clickable="true"
             android:contentDescription="@string/AddServce"
             app:srcCompat="@drawable/baseline_check_circle_24"
-            tools:ignore="ImageContrastCheck,VisualLintBounds" />
+            tools:ignore="ImageContrastCheck,VisualLintBounds"
+            android:focusable="true" />
     </LinearLayout>
 
 

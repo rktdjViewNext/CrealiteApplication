@@ -1,18 +1,26 @@
 package com.crealite.crealiteapp.vista;
 import static java.time.LocalDate.of;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import com.crealite.crealiteapp.R;
+import com.crealite.crealiteapp.modelo.Servicio;
 import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.textfield.TextInputEditText;
+
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -20,22 +28,59 @@ import java.util.Locale;
 
 public class ConfigurarServicioAnadir extends AppCompatActivity {
 
-    ImageButton btnFechaRelizar, btnFechaEntrega;
-    TextView txtFechaRealizar, txtFechaEntrega;
-    Spinner spinnerHora, spinnerMinutos, spinnerProvincia, spinnerHorasContratar;
-
+    private ImageButton btnFechaRelizar, btnFechaEntrega;
+    private Button btnAnadirServicio;
+    private TextView txtFechaRealizar, txtFechaEntrega;
+    private TextInputEditText etLocalidad, etDescripcion;
+    private Spinner spinnerHora, spinnerMinutos, spinnerProvincia, spinnerHorasContratar;
+    private LocalDate fechaArealizar, fechaAEntregar;
+    private LocalTime hora;
+    private String provincia,localidad,descripcion;
+    private int horasAContratar;
+    private Servicio s;
+    private String nombre_proyecto;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.configurar_servicio_anadir);
-
+        Bundle extras = getIntent().getExtras();
+        s = (Servicio) extras.get("SERVICIO");
+        nombre_proyecto = extras.getString("NOMBRE_PROYECTO");
+        System.out.println(nombre_proyecto);
         initComponents();
-        configurarBtnDatePicker(btnFechaRelizar,txtFechaRealizar);
+        configurarBtnDatePicker(btnFechaRelizar,txtFechaRealizar,"REALIZAR");
         configurarHoraARelizar();
-        configurarBtnDatePicker(btnFechaEntrega,txtFechaEntrega);
+        configurarBtnDatePicker(btnFechaEntrega,txtFechaEntrega, "ENTREGAR");
         configurarProvincias();
 
+        //PULSAR AÑADIR SERVICIO
+        btnAnadirServicio.setOnClickListener(v -> {
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                if (fechaArealizar.isBefore(LocalDate.now())){
+                    Toast.makeText(ConfigurarServicioAnadir.this, "Selecionne una feca Correcta", Toast.LENGTH_SHORT).show();
+                }else if (etLocalidad.getText().toString().isEmpty()){
+                    Toast.makeText(ConfigurarServicioAnadir.this, "Introduce una localidad", Toast.LENGTH_SHORT).show();
+                }else if (etDescripcion.getText().toString().isEmpty()){
+                    Toast.makeText(ConfigurarServicioAnadir.this, "INTRODUCE UNA DESCRIPCION", Toast.LENGTH_SHORT).show();
+                } else{
+                    hora = LocalTime.of(Integer.parseInt(spinnerHora.getSelectedItem().toString()),Integer.parseInt(spinnerMinutos.getSelectedItem().toString()));
+                    provincia = spinnerProvincia.getSelectedItem().toString();
+                    localidad = etLocalidad.getText().toString();
+                    horasAContratar = Integer.parseInt(spinnerHorasContratar.getSelectedItem().toString());
+                    descripcion = etDescripcion.getText().toString();
+
+                    s.setFecha(fechaArealizar);
+
+                    Intent intent = new Intent(ConfigurarServicioAnadir.this,NewProyectActivity.class);
+                    intent.putExtra("SERVICIO",s);
+                    System.out.println(nombre_proyecto);
+                    intent.putExtra("NOMBRE_PROYECTO",nombre_proyecto);
+                    startActivity(intent);
+                }
+            }
+        });
 
     }
 
@@ -84,8 +129,7 @@ public class ConfigurarServicioAnadir extends AppCompatActivity {
         spinnerHorasContratar.setAdapter(arrayAdapter);
     }
 
-    private LocalDate configurarBtnDatePicker(ImageButton btnDataPiker, TextView txtDataPicker) {
-        LocalDate localDate = null;
+    private void configurarBtnDatePicker(ImageButton btnDataPiker, TextView txtDataPicker, String seleccion) {
 
         btnDataPiker.setOnClickListener(v -> {
             MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker()
@@ -102,26 +146,47 @@ public class ConfigurarServicioAnadir extends AppCompatActivity {
                 }
                 assert date2 != null;
                 txtDataPicker.setText(date2.toString());
+                if(seleccion.equals("REALIZAR")) {
+                    fechaArealizar = formarFecha(txtDataPicker);
+                    System.out.println("REALIZAR");
+                }else {
+                    fechaAEntregar = formarFecha(txtDataPicker);
+                    System.out.println("ENREGAR");
+                }
+                if (fechaArealizar != null){
+                    System.out.println(fechaArealizar);
+                }else {
+                    System.out.println("ES NULO");
+                }
+
 
             });
             datePicker.show(getSupportFragmentManager(),"tag");
+
+
         });
 
-        return formarFecha(txtDataPicker);
+
 
     }
 
     private LocalDate formarFecha(TextView txtDataPicker) {
         String[] separarFecha = txtDataPicker.getText().toString().split("-");
+
         LocalDate date = null;
         try {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                date = of(Integer.parseInt(separarFecha[2]),Integer.parseInt(separarFecha[1]),Integer.parseInt(separarFecha[0]));
+                date = of(Integer.parseInt(separarFecha[0]),Integer.parseInt(separarFecha[1]),Integer.parseInt(separarFecha[2]));
+                if(date != null){
+                    System.out.println(date);
+                }
             }
         }catch (Exception e){
-
+            System.out.println("NO SE PUEDE CONVERTIR LA FECHA");
         }
-
+        if (date != null){
+            System.out.println(date);
+        }
 
         return date;
     }
@@ -132,18 +197,25 @@ public class ConfigurarServicioAnadir extends AppCompatActivity {
         txtFechaRealizar = findViewById(R.id.txtFechaRealizar);
         btnFechaEntrega = findViewById(R.id.btnFechaEntrega);
         txtFechaEntrega = findViewById(R.id.txtFechaEntrega);
+        btnAnadirServicio = findViewById(R.id.btnAnadirServicio);
         spinnerHora = findViewById(R.id.spinnerHora);
         spinnerMinutos = findViewById(R.id.spinnerMinutos);
         spinnerProvincia = findViewById(R.id.spinnerProvincia);
         spinnerHorasContratar = findViewById(R.id.spinnerHorasContratar);
+        etLocalidad = findViewById(R.id.editTextLocalidad);
+        etDescripcion = findViewById(R.id.editTextDescripcion);
+
 
         //INCIAR FECHAS AL DIA DE ACTUAL:
-        LocalDate fechaActual = null;
+
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            fechaActual = LocalDate.now();
+            fechaArealizar = LocalDate.now();
         }
-        txtFechaEntrega.setText(fechaActual.toString());
-        txtFechaRealizar.setText(fechaActual.toString());
+        txtFechaEntrega.setText(fechaArealizar != null ? fechaArealizar.toString() : null);
+        if (fechaArealizar != null) {
+            txtFechaRealizar.setText(fechaArealizar.toString());
+
+        }
 
     }
 

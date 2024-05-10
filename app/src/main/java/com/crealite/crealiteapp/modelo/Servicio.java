@@ -1,8 +1,9 @@
 package com.crealite.crealiteapp.modelo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Servicio {
+public class Servicio implements Serializable {
 
     private String tipo;
     private LocalDate fecha;

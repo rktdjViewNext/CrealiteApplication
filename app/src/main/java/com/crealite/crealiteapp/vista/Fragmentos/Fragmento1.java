@@ -27,36 +27,6 @@ public class Fragmento1 extends Fragment {
 
         ListView lvServiciosContratados = view.findViewById(R.id.lvSeviciosContratados);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            s = new Servicio("Servicio Fotografia", LocalDate.of(2024,2,11));
-            servicios.add(s);
-            s = new Servicio("Servicio Filmmaking", LocalDate.of(2024,1,19));
-            servicios.add(s);
-            s = new Servicio("Servicio Diseño", LocalDate.of(2024,10,14));
-            servicios.add(s);
-            /*s = new Servicio("Servicio Filmmaking", LocalDate.of(2024,12,4));
-            servicios.add(s);
-            s = new Servicio("Servicio Fotografia", LocalDate.of(2024,3,24));
-            servicios.add(s);
-            s = new Servicio("Servicio Diseño", LocalDate.of(2024,4,26));
-            servicios.add(s);
-            s = new Servicio("Servicio Filmmaking", LocalDate.of(2024,12,12));
-            servicios.add(s);
-            s = new Servicio("Servicio Fotografia", LocalDate.of(2024,2,11));
-            servicios.add(s);
-            s = new Servicio("Servicio Filmmaking", LocalDate.of(2024,1,19));
-            servicios.add(s);
-            s = new Servicio("Servicio Diseño", LocalDate.of(2024,10,14));
-            servicios.add(s);
-            s = new Servicio("Servicio Filmmaking", LocalDate.of(2024,12,4));
-            servicios.add(s);
-            s = new Servicio("Servicio Fotografia", LocalDate.of(2024,3,24));
-            servicios.add(s);
-            s = new Servicio("Servicio Diseño", LocalDate.of(2024,4,26));
-            servicios.add(s);
-            s = new Servicio("Servicio Filmmaking", LocalDate.of(2024,12,12));
-            servicios.add(s);*/
-        }
 
 
         listAdapter = new listServicioContratadoAdapter(getActivity(),servicios);
@@ -67,4 +37,9 @@ public class Fragmento1 extends Fragment {
 
     }
 
+
+
+    public void setServicios(ArrayList<Servicio> servicios) {
+        this.servicios = servicios;
+    }
 }
