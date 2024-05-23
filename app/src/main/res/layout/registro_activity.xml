@@ -153,6 +153,8 @@
                 app:helperTextTextColor="@color/orange"
                 app:helperText="* Obligatorio"
                 app:boxCornerRadiusBottomEnd="50dp"
+                app:errorTextColor="@color/white"
+                app:boxStrokeErrorColor="@color/white"
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -291,6 +293,32 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextOficio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:textColorHint="#90A4AE"
+                    tools:ignore="VisualLintTextFieldSize" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                app:boxStrokeColor="@color/orange"
+                android:textColorHint="@color/orange"
+                android:hint="@string/ciudad"
+                app:placeholderTextColor="@color/orange"
+                app:hintTextColor="@color/orange"
+                app:boxBackgroundColor="@color/grey"
+                app:helperTextTextColor="@color/orange"
+                app:boxCornerRadiusBottomEnd="50dp"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextCiudad"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"

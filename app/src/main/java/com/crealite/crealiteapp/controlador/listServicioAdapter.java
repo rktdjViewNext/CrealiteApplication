@@ -6,17 +6,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.crealite.crealiteapp.R;
+import com.crealite.crealiteapp.modelo.Diseno;
+import com.crealite.crealiteapp.modelo.Fotografia;
 import com.crealite.crealiteapp.modelo.Servicio;
+import com.crealite.crealiteapp.modelo.Video;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class listServicioAdapter extends ArrayAdapter<Servicio> {
     public listServicioAdapter(@NonNull Context context, ArrayList<Servicio> servicios) {
@@ -32,15 +33,22 @@ public class listServicioAdapter extends ArrayAdapter<Servicio> {
 
         if (convertView == null){
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item,parent,false);
-
         }
 
         ImageButton btnRemoveItem = convertView.findViewById(R.id.btnRemove);
         TextView tipoServicio = convertView.findViewById(R.id.tipoServicioItem);
         TextView fechaServicio = convertView.findViewById(R.id.fechaServicioItem);
 
-        tipoServicio.setText(s.getTipo());
-        fechaServicio.setText(s.getFecha().toString());
+
+        fechaServicio.setText(s.getFechaRealizar().toString());
+
+        if (s instanceof Fotografia){
+            tipoServicio.setText("FOTOGRAFIA");
+        }else if (s instanceof Video){
+            tipoServicio.setText("VIDEO");
+        }else{
+            tipoServicio.setText("DISEÑO");
+        }
 
         btnRemoveItem.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,4 +1,5 @@
 package com.crealite.crealiteapp.vista;
+
 import static java.time.LocalDate.of;
 
 import android.content.Intent;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.crealite.crealiteapp.R;
 import com.crealite.crealiteapp.modelo.Servicio;
 import com.google.android.material.datepicker.MaterialDatePicker;
@@ -26,7 +28,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
 
-public class ConfigurarServicioAnadir extends AppCompatActivity {
+public class ConfigurarServicioAnadirDiseno extends AppCompatActivity {
 
     private ImageButton btnFechaRelizar, btnFechaEntrega;
     private Button btnAnadirServicio;
@@ -43,7 +45,7 @@ public class ConfigurarServicioAnadir extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.configurar_servicio_anadir);
+        setContentView(R.layout.configurar_servicio_anadir_fotografia);
         Bundle extras = getIntent().getExtras();
         s = (Servicio) extras.get("SERVICIO");
         nombre_proyecto = extras.getString("NOMBRE_PROYECTO");
@@ -59,21 +61,19 @@ public class ConfigurarServicioAnadir extends AppCompatActivity {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 if (fechaArealizar.isBefore(LocalDate.now())){
-                    Toast.makeText(ConfigurarServicioAnadir.this, "Selecionne una feca Correcta", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ConfigurarServicioAnadirDiseno.this, "Selecionne una feca Correcta", Toast.LENGTH_SHORT).show();
                 }else if (etLocalidad.getText().toString().isEmpty()){
-                    Toast.makeText(ConfigurarServicioAnadir.this, "Introduce una localidad", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ConfigurarServicioAnadirDiseno.this, "Introduce una localidad", Toast.LENGTH_SHORT).show();
                 }else if (etDescripcion.getText().toString().isEmpty()){
-                    Toast.makeText(ConfigurarServicioAnadir.this, "INTRODUCE UNA DESCRIPCION", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ConfigurarServicioAnadirDiseno.this, "INTRODUCE UNA DESCRIPCION", Toast.LENGTH_SHORT).show();
                 } else{
                     hora = LocalTime.of(Integer.parseInt(spinnerHora.getSelectedItem().toString()),Integer.parseInt(spinnerMinutos.getSelectedItem().toString()));
                     provincia = spinnerProvincia.getSelectedItem().toString();
                     localidad = etLocalidad.getText().toString();
                     horasAContratar = Integer.parseInt(spinnerHorasContratar.getSelectedItem().toString());
                     descripcion = etDescripcion.getText().toString();
-
-                    s.setFecha(fechaArealizar);
-
-                    Intent intent = new Intent(ConfigurarServicioAnadir.this,NewProyectActivity.class);
+                    s.setFechaRealizar(fechaArealizar);
+                    Intent intent = new Intent(ConfigurarServicioAnadirDiseno.this,NewProyectActivity.class);
                     intent.putExtra("SERVICIO",s);
                     System.out.println(nombre_proyecto);
                     intent.putExtra("NOMBRE_PROYECTO",nombre_proyecto);
@@ -141,7 +141,7 @@ public class ConfigurarServicioAnadir extends AppCompatActivity {
                 String date=  new SimpleDateFormat("dd-MM-yyy", Locale.getDefault()).format(new Date(selection));
                 String[] separarFecha = date.split("-");
                 LocalDate date2 = null;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     date2 = of(Integer.parseInt(separarFecha[2]),Integer.parseInt(separarFecha[1]),Integer.parseInt(separarFecha[0]));
                 }
                 assert date2 != null;
@@ -175,7 +175,7 @@ public class ConfigurarServicioAnadir extends AppCompatActivity {
 
         LocalDate date = null;
         try {
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 date = of(Integer.parseInt(separarFecha[0]),Integer.parseInt(separarFecha[1]),Integer.parseInt(separarFecha[2]));
                 if(date != null){
                     System.out.println(date);
@@ -195,8 +195,6 @@ public class ConfigurarServicioAnadir extends AppCompatActivity {
     private void initComponents() {
         btnFechaRelizar = findViewById(R.id.btnFechaRealizar);
         txtFechaRealizar = findViewById(R.id.txtFechaRealizar);
-        btnFechaEntrega = findViewById(R.id.btnFechaEntrega);
-        txtFechaEntrega = findViewById(R.id.txtFechaEntrega);
         btnAnadirServicio = findViewById(R.id.btnAnadirServicio);
         spinnerHora = findViewById(R.id.spinnerHora);
         spinnerMinutos = findViewById(R.id.spinnerMinutos);
@@ -208,7 +206,7 @@ public class ConfigurarServicioAnadir extends AppCompatActivity {
 
         //INCIAR FECHAS AL DIA DE ACTUAL:
 
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             fechaArealizar = LocalDate.now();
         }
         txtFechaEntrega.setText(fechaArealizar != null ? fechaArealizar.toString() : null);

@@ -10,12 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.crealite.crealiteapp.R;
+import com.crealite.crealiteapp.modelo.Servicio;
 
+import java.util.ArrayList;
 
 
 public class Fragmento3 extends Fragment {
 
-
+    private ArrayList<Servicio> servicios;
     @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -27,12 +29,17 @@ public class Fragmento3 extends Fragment {
         TextView presupuestoServicios = view.findViewById(R.id.txtPresupuestoServicios);
         TextView presupuestoTrabajadores = view.findViewById(R.id.txtPresupuestoEmpleados);
         TextView precioTotal = view.findViewById(R.id.txtPrecioTotal);
+
+
+
         presupuestoServicios.setText("SERVICIO  FOTOGRAFIA ---------------  700€" + Html.fromHtml("<br />" ) + "SERVICIO  VIDEO ---------------  700€" + Html.fromHtml("<br />" ) + Html.fromHtml("<br />" ) + " SERVICIOS: 1400€");
         presupuestoTrabajadores.setText("SERVICIO  FOTOGRAFIA ---------------  700€" + Html.fromHtml("<br />" ) + "SERVICIO  VIDEO ---------------  700€" + Html.fromHtml("<br />" ) + Html.fromHtml("<br />" ) + " SERVICIOS: 1400€ " +  Html.fromHtml("<br />" ) + "SERVICIO  FOTOGRAFIA ---------------  700€" + Html.fromHtml("<br />" ) + "SERVICIO  VIDEO ---------------  700€" + Html.fromHtml("<br />" ) + Html.fromHtml("<br />")  + " SERVICIOS: 1400€");
 
 
-
-
         return view;
+    }
+
+    public void setServicios(ArrayList<Servicio> servicios) {
+        this.servicios = servicios;
     }
 }

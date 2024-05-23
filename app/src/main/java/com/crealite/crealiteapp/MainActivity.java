@@ -7,11 +7,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.crealite.crealiteapp.controlador.CRUD_Clientes;
+import com.crealite.crealiteapp.controlador.CRUD_Proyecto;
+import com.crealite.crealiteapp.controlador.Constantes;
+import com.crealite.crealiteapp.modelo.Cliente;
 import com.crealite.crealiteapp.vista.HomePageActivity;
 import com.crealite.crealiteapp.vista.RegistroActivity;
 
@@ -21,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvRegistrarme;
     private AppCompatButton btnIniciarSesion;
     private String usuario, contrasena;
+    private CRUD_Clientes crud_clientes;
+    private CRUD_Proyecto crudProyecto;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
 
         initComponents();
 
+
+
         //---- PULSAR BOTON DE INICAR SESION
         btnIniciarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,15 +53,16 @@ public class MainActivity extends AppCompatActivity {
                 //Recoger credenciales de los EditText.
                 usuario  = etUser.getText().toString();
                 contrasena = etPass.getText().toString();
+                Cliente c = crud_clientes.search(new Cliente(usuario));
 
                 //----- CONTROLAR CREDENCIALES
                 if(controlCredenciales()){
                     // Comprobar usuario en la base de datos.
-                    if (true){
+                    if ( c != null){
                         // Comprobar si la contraseña coincide con
                         // la contraseña del usuario.
-                        if (true){
-                                iniciarSesion();
+                        if (c.getContrasena().equals(contrasena)){
+                                iniciarSesion(c);
                         }else{
                             Toast.makeText(MainActivity.this,"CONTRASEÑA INCORRECTA",Toast.LENGTH_LONG).show();
                         }
@@ -79,8 +91,9 @@ public class MainActivity extends AppCompatActivity {
      * Iniciar el activity del home Page con
      * el usuario que ha iniciado sesion.
      */
-    private void iniciarSesion() {
+    private void iniciarSesion(Cliente c) {
         Intent intent = new Intent(this, HomePageActivity.class);
+        intent.putExtra(Constantes.EXTRA_CLIENTE,c);
         startActivity(intent);
     }
     //---------------------------------------------------------------------------
@@ -103,5 +116,7 @@ public class MainActivity extends AppCompatActivity {
         etPass = findViewById(R.id.editTextContrasena);
         tvRegistrarme = findViewById(R.id.textViewRegistrarme);
         btnIniciarSesion = findViewById(R.id.btnLogin);
+        crud_clientes = new CRUD_Clientes();
+        crudProyecto = new CRUD_Proyecto();
     }
 }

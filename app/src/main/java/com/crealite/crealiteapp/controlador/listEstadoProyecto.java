@@ -1,7 +1,6 @@
 package com.crealite.crealiteapp.controlador;
 
 import android.content.Context;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,17 +10,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatButton;
-import androidx.core.content.res.ResourcesCompat;
 
 import com.crealite.crealiteapp.R;
-import com.crealite.crealiteapp.modelo.ProcesosProyecto;
-import com.crealite.crealiteapp.modelo.Servicio;
+import com.crealite.crealiteapp.modelo.EstadoProyecto;
 
 import java.util.ArrayList;
 
-public class listEstadoProyecto extends ArrayAdapter<ProcesosProyecto> {
-    public listEstadoProyecto(@NonNull Context context, ArrayList<ProcesosProyecto > procesosProyectos) {
+public class listEstadoProyecto extends ArrayAdapter<EstadoProyecto> {
+    public listEstadoProyecto(@NonNull Context context, ArrayList<EstadoProyecto> procesosProyectos) {
         super(context, R.layout.list_item_estado_pryecto, procesosProyectos);
     }
 
@@ -30,7 +26,7 @@ public class listEstadoProyecto extends ArrayAdapter<ProcesosProyecto> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-        ProcesosProyecto estado = getItem(position);
+        EstadoProyecto estado = getItem(position);
 
         if (convertView == null){
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_estado_pryecto,parent,false);
@@ -47,11 +43,11 @@ public class listEstadoProyecto extends ArrayAdapter<ProcesosProyecto> {
             check.setImageResource(R.drawable.baseline_check_circle_green_24);
         }else if(estado.getEstado().equals("EN PROCESO")){
             check.setImageResource(R.drawable.baseline_alarm_24);
-        }else {
+        }else if(estado.getEstado().equals("CANCELADO")) {
             check.setImageResource(R.drawable.baseline_cancel_red_24);
+        }else{
+            check.setImageResource(R.drawable.baseline_minimize_24);
         }
-
-
 
         return convertView;
     }

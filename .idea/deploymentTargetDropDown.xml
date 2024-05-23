@@ -2,10 +2,10 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="ConfigurarServicioAnadir">
+      <entry key="AnadirServicioProyecto">
         <State />
       </entry>
-      <entry key="HomePageActivity">
+      <entry key="ListProyectsActivity">
         <State />
       </entry>
       <entry key="MainActivity">
@@ -14,10 +14,10 @@
       <entry key="NewProyectActivity">
         <State />
       </entry>
-      <entry key="app">
+      <entry key="RegistroActivity">
         <State />
       </entry>
-      <entry key="proyectViewActivity">
+      <entry key="app">
         <State />
       </entry>
     </value>

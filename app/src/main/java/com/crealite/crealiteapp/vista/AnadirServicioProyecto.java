@@ -13,24 +13,25 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 import com.crealite.crealiteapp.R;
+import com.crealite.crealiteapp.controlador.Constantes;
+import com.crealite.crealiteapp.modelo.Cliente;
+import com.crealite.crealiteapp.modelo.Diseno;
+import com.crealite.crealiteapp.modelo.Fotografia;
+import com.crealite.crealiteapp.modelo.Proyecto;
 import com.crealite.crealiteapp.modelo.Servicio;
+import com.crealite.crealiteapp.modelo.Video;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class AnadirServicioProyecto extends AppCompatActivity {
     private Spinner spinner;
     private Button btnFotografia,btnFilmmaking,btnDiseno,btnAddServicio;
-    private ArrayList<String> tiposFotografia;
-    private ArrayList<String> tiposFilmmaking;
-    private ArrayList<String> tiposDiseno;
     private String tipoServicio;
     private ImageButton btnBack;
     private Servicio s;
-
-    private String nombre_proyecto;
-
+    private Proyecto nuevoProyecto;
+    private ArrayList<Servicio> servicios;
+    private Cliente cliente;
 
 
     @Override
@@ -39,13 +40,13 @@ public class AnadirServicioProyecto extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.anadir_servicio_proyecto);
         initComponents();
-        cargarDatosSpinnerServicios(tiposFotografia);
+        cargarDatosSpinnerServicios();
         cambiarTipoDeServicioListener();
 
         Bundle extras = getIntent().getExtras();
         if (extras != null){
-            nombre_proyecto = extras.getString("NOMBRE_PROYECTO");
-            System.out.println(nombre_proyecto);
+            nuevoProyecto = (Proyecto) extras.get(Constantes.EXTRA_PRYECTO);
+            servicios = (ArrayList<Servicio>) extras.getSerializable(Constantes.EXTRA_LISTA_SERVICIO);
         }
 
         //PULSAR BOTON IR HACIA ATRAS.
@@ -61,24 +62,41 @@ public class AnadirServicioProyecto extends AppCompatActivity {
         btnAddServicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String item = spinner.getSelectedItem().toString();
-                if (item.equalsIgnoreCase("SELECCIONE TIPO FOTOGRAFIA") || item.equalsIgnoreCase("SELECCIONE EL TIPO DE FILMACIÓN") || item.equalsIgnoreCase("SELECCIONE TIPO DISEÑO")){
-                    Toast.makeText(AnadirServicioProyecto.this, "SELECCIONTE UN TIPO", Toast.LENGTH_SHORT).show();
-                }else {
-                    s = new Servicio(tipoServicio, null);
-                    iniciarConfiguracionServicio(s);
-                }
+                iniciarConfiguracionServicio();
             }
         });
 
     }
 
-    private void iniciarConfiguracionServicio(Servicio s) {
-        Intent intent = new Intent(this,ConfigurarServicioAnadir.class);
-        intent.putExtra("SERVICIO",s);
-        System.out.println(nombre_proyecto);
-        intent.putExtra("NOMBRE_PROYECTO",nombre_proyecto);
-        startActivity(intent);
+    private void iniciarConfiguracionServicio() {
+
+        if (tipoServicio.equals("FILLMAKING")){
+            Video video = new Video();
+            video.setTipo(spinner.getSelectedItem().toString());
+            Intent intent = new Intent(this, ConfigurarServicioAnadirVideo.class);
+            intent.putExtra(Constantes.EXTRA_SERVICIO, video);
+            intent.putExtra(Constantes.EXTRA_PRYECTO,nuevoProyecto);
+            intent.putExtra(Constantes.EXTRA_LISTA_SERVICIO,servicios);
+            startActivity(intent);
+        }else if (tipoServicio.equals("FOTOGRAFIA")){
+            Fotografia fotografia = new Fotografia();
+            fotografia.setTipo(spinner.getSelectedItem().toString());
+            Intent intent = new Intent(this, ConfigurarServicioAnadirFotografia.class);
+            intent.putExtra(Constantes.EXTRA_SERVICIO, fotografia);
+            intent.putExtra(Constantes.EXTRA_PRYECTO,nuevoProyecto);
+            intent.putExtra(Constantes.EXTRA_LISTA_SERVICIO,servicios);
+            startActivity(intent);
+        }else{
+            Diseno diseno = new Diseno();
+            diseno.setTipo(spinner.getSelectedItem().toString());
+            Intent intent = new Intent(this, ConfigurarServicioAnadirFotografia.class);
+            intent.putExtra(Constantes.EXTRA_SERVICIO, diseno);
+            intent.putExtra(Constantes.EXTRA_PRYECTO,nuevoProyecto);
+            intent.putExtra(Constantes.EXTRA_LISTA_SERVICIO,servicios);
+            startActivity(intent);
+        }
+
+
     }
 
 
@@ -88,62 +106,22 @@ public class AnadirServicioProyecto extends AppCompatActivity {
         btnFilmmaking = findViewById(R.id.btnServicioFilmmakingAdd);
         btnFotografia = findViewById(R.id.btnServicioFotografiaAdd);
         btnBack = findViewById(R.id.btnBack);
-        tiposFilmmaking = new ArrayList<>();
-        tiposFotografia = new ArrayList<>();
-        tiposDiseno = new ArrayList<>();
         btnAddServicio = findViewById(R.id.btnAddServicio);
-        iniciarArrayTiposServicos();
+
     }
 
-    private void cargarDatosSpinnerServicios(ArrayList<String> tiposServicios){
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this,R.layout.style_spinner, tiposServicios);
+    private void cargarDatosSpinnerServicios(){
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this,R.layout.style_spinner, Constantes.TIPO_SERVICIO_VIDEO);
         spinner.setAdapter(arrayAdapter);
     }
 
 
-
-    private void iniciarArrayTiposServicos() {
-        tipoServicio = "FOTOGRAFIA";
-
-        tiposFotografia.add("SELECCIONE TIPO FOTOGRAFIA");
-        tiposFotografia.add("BODA");
-        tiposFotografia.add("COMUNION");
-        tiposFotografia.add("EVENTO");
-        tiposFotografia.add("DJ");
-        tiposFotografia.add("DISCOTECA");
-        tiposFotografia.add("URBANA");
-        tiposFotografia.add("ESTUDIO");
-        tiposFotografia.add("PRODUCTO");
-
-        tiposDiseno.add("SELECCIONE TIPO DISEÑO");
-        tiposDiseno.add("BANNER");
-        tiposDiseno.add("PORTADA");
-        tiposDiseno.add("FLYER");
-        tiposDiseno.add("LOGO");
-        tiposDiseno.add("OVERLAY");
-        tiposDiseno.add("ANIMATION");
-
-        tiposFilmmaking.add("SELECCIONE EL TIPO DE FILMACIÓN");
-        tiposFilmmaking.add("BODA");
-        tiposFilmmaking.add("COMUNION");
-        tiposFilmmaking.add("DJ");
-        tiposFilmmaking.add("EVENTO");
-        tiposFilmmaking.add("DISCOTECA");
-        tiposFilmmaking.add("VIDEOCLIP");
-        tiposFilmmaking.add("SPOT PUBLICITARIO");
-        tiposFilmmaking.add("NEGOCIO");
-        tiposFilmmaking.add("MARCA PERSONAL");
-
-
-    }
-
     private void cambiarTipoDeServicioListener() {
 
         btnFotografia.setOnClickListener(v -> {
-
             //CAMBIAR COLOR FONDO BOTONES
             cambiarColorBotones(btnFotografia,btnFilmmaking,btnDiseno);
-            cargarDatosSpinnerServicios(tiposFotografia);
+            spinner.setAdapter(new ArrayAdapter<>(this,R.layout.style_spinner, Constantes.TIPO_SERVICIO_VIDEO));
             tipoServicio = "FOTOGRAFIA";
         });
 
@@ -152,7 +130,7 @@ public class AnadirServicioProyecto extends AppCompatActivity {
         btnFilmmaking.setOnClickListener(v -> {
             //CAMBIAR COLOR FONDO BOTONES
             cambiarColorBotones(btnFilmmaking,btnFotografia,btnDiseno);
-            cargarDatosSpinnerServicios(tiposFilmmaking);
+            spinner.setAdapter(new ArrayAdapter<>(this,R.layout.style_spinner,Constantes.TIPO_SERVICIO_VIDEO));
             tipoServicio = "FILLMAKING";
         });
 
@@ -161,7 +139,7 @@ public class AnadirServicioProyecto extends AppCompatActivity {
         btnDiseno.setOnClickListener(v -> {
             //CAMBIAR COLOR FONDO BOTONES
             cambiarColorBotones(btnDiseno,btnFotografia,btnFilmmaking);
-            cargarDatosSpinnerServicios(tiposDiseno);
+            spinner.setAdapter(new ArrayAdapter<>(this,R.layout.style_spinner, Constantes.TIPO_SERVICIO_VIDEO));
             tipoServicio = "DISENO";
         });
     }
