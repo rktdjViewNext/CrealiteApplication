@@ -5,6 +5,7 @@ import static java.time.LocalDate.of;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -16,6 +17,9 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.crealite.crealiteapp.R;
+import com.crealite.crealiteapp.controlador.Constantes;
+import com.crealite.crealiteapp.modelo.Fotografia;
+import com.crealite.crealiteapp.modelo.Proyecto;
 import com.crealite.crealiteapp.modelo.Servicio;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.TextInputEditText;
@@ -30,31 +34,59 @@ import java.util.Locale;
 
 public class ConfigurarServicioAnadirFotografia extends AppCompatActivity {
 
-    private ImageButton btnFechaRelizar, btnFechaEntrega;
+    private ImageButton btnFechaRelizar, btnBack;
     private Button btnAnadirServicio;
-    private TextView txtFechaRealizar, txtFechaEntrega;
+    private TextView txtFechaRealizar;
     private TextInputEditText etLocalidad, etDescripcion;
-    private Spinner spinnerHora, spinnerMinutos, spinnerProvincia, spinnerHorasContratar;
-    private LocalDate fechaArealizar, fechaAEntregar;
+    private Spinner spinnerHora, spinnerMinutos, spinnerProvincia, spinnerHorasContratar, spinnerCantidaFotos;
+    private LocalDate fechaArealizar;
     private LocalTime hora;
     private String provincia,localidad,descripcion;
-    private int horasAContratar;
-    private Servicio s;
-    private String nombre_proyecto;
+    private int horasAContratar, cantidadFotos;
+    private Fotografia foto;
+    private Proyecto nuevoProyecto;
+    private ArrayList<Servicio> servicios;
+    private ArrayAdapter<String> arrayAdapterProvincia;
+    private String [] provincias;
+    private ArrayList<String> arrayListHorasAcontratar;
+    private ArrayList<String> arrayListDuracionVideo;
+    private String [] cantidadFotosArray;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.configurar_servicio_anadir_fotografia);
-        Bundle extras = getIntent().getExtras();
-        s = (Servicio) extras.get("SERVICIO");
-        nombre_proyecto = extras.getString("NOMBRE_PROYECTO");
-        System.out.println(nombre_proyecto);
         initComponents();
-        configurarBtnDatePicker(btnFechaRelizar,txtFechaRealizar,"REALIZAR");
-        configurarHoraARelizar();
-        configurarBtnDatePicker(btnFechaEntrega,txtFechaEntrega, "ENTREGAR");
         configurarProvincias();
+        configurarSpinners();
+
+        Bundle extras = getIntent().getExtras();
+        foto= (Fotografia) extras.get(Constantes.EXTRA_SERVICIO);
+        System.out.println("ESTA ES LA DURACION QUE LE LLEGA: " + foto.getDuracion());
+
+        if (foto.getProyecto()!= null){
+            rellenarCampos();
+            desabilitarCampos();
+            if (foto.getProyecto().isPagado()){
+                desabilitarCampos();
+            }else {
+
+            }
+        }
+        nuevoProyecto = (Proyecto) extras.get(Constantes.EXTRA_PRYECTO);
+        servicios = (ArrayList<Servicio>) extras.getSerializable(Constantes.EXTRA_LISTA_SERVICIO);
+        configurarBtnDatePicker(btnFechaRelizar,txtFechaRealizar,"REALIZAR");
+
+       /* btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (video != null){
+                    onBackPressed();
+                }else{
+                    onBackPressed();
+                }
+            }
+        });*/
 
         //PULSAR AÑADIR SERVICIO
         btnAnadirServicio.setOnClickListener(v -> {
@@ -68,15 +100,22 @@ public class ConfigurarServicioAnadirFotografia extends AppCompatActivity {
                     Toast.makeText(ConfigurarServicioAnadirFotografia.this, "INTRODUCE UNA DESCRIPCION", Toast.LENGTH_SHORT).show();
                 } else{
                     hora = LocalTime.of(Integer.parseInt(spinnerHora.getSelectedItem().toString()),Integer.parseInt(spinnerMinutos.getSelectedItem().toString()));
-                    provincia = spinnerProvincia.getSelectedItem().toString();
+                    provincia = (String) spinnerProvincia.getSelectedItem();
                     localidad = etLocalidad.getText().toString();
                     horasAContratar = Integer.parseInt(spinnerHorasContratar.getSelectedItem().toString());
                     descripcion = etDescripcion.getText().toString();
-                    s.setFechaRealizar(fechaArealizar);
+                    cantidadFotos = Integer.parseInt(spinnerCantidaFotos.getSelectedItem().toString());
+                    foto.setFechaRealizar(fechaArealizar);
+                    foto.setDuracion(horasAContratar);
+                    foto.setDescripcion(descripcion);
+                    foto.setLocalidad(localidad);
+                    foto.setProvincia(provincia);
+                    foto.setProyecto(nuevoProyecto);
+                    foto.setCantidadFotos(cantidadFotos);
+                    servicios.add(foto);
                     Intent intent = new Intent(ConfigurarServicioAnadirFotografia.this,NewProyectActivity.class);
-                    intent.putExtra("SERVICIO",s);
-                    System.out.println(nombre_proyecto);
-                    intent.putExtra("NOMBRE_PROYECTO",nombre_proyecto);
+                    intent.putExtra(Constantes.EXTRA_PRYECTO,nuevoProyecto);
+                    intent.putExtra(Constantes.EXTRA_LISTA_SERVICIO,servicios);
                     startActivity(intent);
                 }
             }
@@ -84,23 +123,73 @@ public class ConfigurarServicioAnadirFotografia extends AppCompatActivity {
 
     }
 
+    private void rellenarCampos() {
+        txtFechaRealizar.setText(foto.getFechaRealizar().toString());
+        etLocalidad.setText(foto.getLocalidad());
+        etDescripcion.setText(foto.getDescripcion());
+
+        for (int i = 0; i < provincias.length; i++) {
+
+            if (foto.getProvincia().equalsIgnoreCase(provincias[i])){
+                spinnerProvincia.setSelection(i);
+                break;
+            }
+        }
+
+        for (int i = 0; i < arrayListHorasAcontratar.size(); i++) {
+            if (String.valueOf(foto.getDuracion()).equalsIgnoreCase(arrayListHorasAcontratar.get(i))){
+                spinnerHorasContratar.setSelection(i);
+                break;
+            }
+        }
+
+        for (int i = 0; i < cantidadFotosArray.length; i++) {
+            if (String.valueOf(foto.getCantidadFotos()).equalsIgnoreCase(cantidadFotosArray[i])){
+               spinnerCantidaFotos.setSelection(i);
+                break;
+            }
+        }
+
+
+    }
+
+    private void desabilitarCampos() {
+        btnFechaRelizar.setEnabled(false);
+        spinnerHorasContratar.setEnabled(false);
+        spinnerHora.setEnabled(false);
+        spinnerMinutos.setEnabled(false);
+        etDescripcion.setEnabled(false);
+        btnAnadirServicio.setEnabled(false);
+        btnAnadirServicio.setActivated(false);
+        btnAnadirServicio.setVisibility(View.INVISIBLE);
+        spinnerProvincia.setEnabled(false);
+        spinnerCantidaFotos.setEnabled(false);
+        etLocalidad.setEnabled(false);
+
+    }
+
     private void configurarProvincias() {
-        String [] provincias = {"Alava","Albacete","Alicante","Almería","Asturias","Avila","Badajoz","Barcelona","Burgos","Cáceres",
+        provincias = new String [] {"Alava","Albacete","Alicante","Almería","Asturias","Avila","Badajoz","Barcelona","Burgos","Cáceres",
                 "Cádiz","Cantabria","Castellón","Ciudad Real","Córdoba","La Coruña","Cuenca","Gerona","Granada","Guadalajara",
                 "Guipúzcoa","Huelva","Huesca","Islas Baleares","Jaén","León","Lérida","Lugo","Madrid","Málaga","Murcia","Navarra",
                 "Orense","Palencia","Las Palmas","Pontevedra","La Rioja","Salamanca","Segovia","Sevilla","Soria","Tarragona2",
                 "Santa Cruz de Tenerife","Teruel","Toledo","Valencia","Valladolid","Vizcaya","Zamora","Zaragoza"};
 
         ArrayList<String> arrayList = new ArrayList<>(Arrays.asList(provincias));
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this,R.layout.style_spinner,arrayList);
-        spinnerProvincia.setAdapter(arrayAdapter);
+        arrayAdapterProvincia = new ArrayAdapter<>(this,R.layout.style_spinner,arrayList);
+        spinnerProvincia.setAdapter(arrayAdapterProvincia);
+
     }
 
 
-    private void configurarHoraARelizar() {
+    private void configurarSpinners() {
+        //ARRAY NECESARIOS
         String [] horas = new String[24];
         String [] minutos = new String[6];
         String [] horasContratar = new String[8];
+        cantidadFotosArray = new String[] {"10","20","30","40","50","60","70","80","90"};
+
+        //RELLNENAR HORAS
         for (int i = 0; i < 24; i++) {
             if (String.valueOf(i).length()==1){
                 horas[i] = "0" + i;
@@ -108,25 +197,36 @@ public class ConfigurarServicioAnadirFotografia extends AppCompatActivity {
                 horas[i] = String.valueOf(i);
             }
         }
-        minutos[0] = "00";
 
+        //RELLENAR MINUTOS
+        minutos[0] = "00";
         for (int i = 1; i < 6; i++) {
             minutos[i] = String.valueOf(i*10);
         }
+
+        //RELLENAR HORAS
 
         for (int i = 1; i <= 8; i++) {
             horasContratar[i-1] = String.valueOf(i);
         }
 
-        ArrayList<String> arrayList = new ArrayList<>(Arrays.asList(horas));
+
+
+        ArrayList<String> arrayList= new ArrayList<>(Arrays.asList(horas));
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this,R.layout.style_spinner,arrayList);
         spinnerHora.setAdapter(arrayAdapter);
+
         arrayList = new ArrayList<>(Arrays.asList(minutos));
         arrayAdapter = new ArrayAdapter<>(this,R.layout.style_spinner,arrayList);
         spinnerMinutos.setAdapter(arrayAdapter);
-        arrayList = new ArrayList<>(Arrays.asList(horasContratar));
-        arrayAdapter = new ArrayAdapter<>(this,R.layout.style_spinner,arrayList);
+
+        arrayListHorasAcontratar = new ArrayList<>(Arrays.asList(horasContratar));
+        arrayAdapter = new ArrayAdapter<>(this,R.layout.style_spinner,arrayListHorasAcontratar);
         spinnerHorasContratar.setAdapter(arrayAdapter);
+
+        arrayListDuracionVideo = new ArrayList<>(Arrays.asList(cantidadFotosArray));
+        arrayAdapter = new ArrayAdapter<>(this,R.layout.style_spinner,arrayListDuracionVideo);
+        spinnerCantidaFotos.setAdapter(arrayAdapter);
     }
 
     private void configurarBtnDatePicker(ImageButton btnDataPiker, TextView txtDataPicker, String seleccion) {
@@ -148,11 +248,9 @@ public class ConfigurarServicioAnadirFotografia extends AppCompatActivity {
                 txtDataPicker.setText(date2.toString());
                 if(seleccion.equals("REALIZAR")) {
                     fechaArealizar = formarFecha(txtDataPicker);
-                    System.out.println("REALIZAR");
-                }else {
-                    fechaAEntregar = formarFecha(txtDataPicker);
-                    System.out.println("ENREGAR");
+
                 }
+
                 if (fechaArealizar != null){
                     System.out.println(fechaArealizar);
                 }else {
@@ -194,25 +292,23 @@ public class ConfigurarServicioAnadirFotografia extends AppCompatActivity {
 
     private void initComponents() {
         btnFechaRelizar = findViewById(R.id.btnFechaRealizar);
+        btnBack = findViewById(R.id.btnBack);
         txtFechaRealizar = findViewById(R.id.txtFechaRealizar);
         btnAnadirServicio = findViewById(R.id.btnAnadirServicio);
         spinnerHora = findViewById(R.id.spinnerHora);
         spinnerMinutos = findViewById(R.id.spinnerMinutos);
         spinnerProvincia = findViewById(R.id.spinnerProvincia);
         spinnerHorasContratar = findViewById(R.id.spinnerHorasContratar);
+        spinnerCantidaFotos = findViewById(R.id.spinnerCantidadFotos);
         etLocalidad = findViewById(R.id.editTextLocalidad);
         etDescripcion = findViewById(R.id.editTextDescripcion);
+
 
 
         //INCIAR FECHAS AL DIA DE ACTUAL:
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             fechaArealizar = LocalDate.now();
-        }
-        txtFechaEntrega.setText(fechaArealizar != null ? fechaArealizar.toString() : null);
-        if (fechaArealizar != null) {
-            txtFechaRealizar.setText(fechaArealizar.toString());
-
         }
 
     }

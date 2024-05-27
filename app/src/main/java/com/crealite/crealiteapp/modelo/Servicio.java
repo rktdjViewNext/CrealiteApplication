@@ -112,7 +112,9 @@ public class Servicio implements Serializable {
         this.proyecto = proyecto;
     }
 
-
+    public void setEmpleadosNecesarios(int empleadosNecesarios) {
+        this.empleadosNecesarios = empleadosNecesarios;
+    }
 
     @Override
     public String toString() {

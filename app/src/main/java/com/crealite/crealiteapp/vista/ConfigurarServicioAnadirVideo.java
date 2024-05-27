@@ -4,6 +4,7 @@ import static java.time.LocalDate.of;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -17,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.crealite.crealiteapp.R;
 import com.crealite.crealiteapp.controlador.CRUD_Servicios;
 import com.crealite.crealiteapp.controlador.Constantes;
+import com.crealite.crealiteapp.controlador.listServicioContratadoAdapter;
 import com.crealite.crealiteapp.modelo.Fotografia;
 import com.crealite.crealiteapp.modelo.Proyecto;
 import com.crealite.crealiteapp.modelo.Servicio;
@@ -34,7 +36,7 @@ import java.util.Locale;
 
 public class ConfigurarServicioAnadirVideo extends AppCompatActivity {
 
-    private ImageButton btnFechaRelizar;
+    private ImageButton btnFechaRelizar, btnBack;
     private Button btnAnadirServicio;
     private TextView txtFechaRealizar;
     private TextInputEditText etLocalidad, etDescripcion;
@@ -48,19 +50,46 @@ public class ConfigurarServicioAnadirVideo extends AppCompatActivity {
     private Proyecto nuevoProyecto;
     private CheckBox cbMakingOff;
     private ArrayList<Servicio> servicios;
+    private ArrayAdapter<String> arrayAdapterProvincia;
+    private String [] provincias;
+    private ArrayList<String> arrayListHorasAcontratar;
+    private ArrayList<String> arrayListDuracionVideo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.configurar_servicio_anadir_video);
+        initComponents();
+        configurarProvincias();
+        configurarSpinners();
+
         Bundle extras = getIntent().getExtras();
         video= (Video) extras.get(Constantes.EXTRA_SERVICIO);
+        System.out.println("ESTA ES LA DURACION QUE LE LLEGA: " + video.getDuracion());
+
+        if (video.getProyecto()!= null){
+            rellenarCampos();
+            desabilitarCampos();
+            if (video.getProyecto().isPagado()){
+                desabilitarCampos();
+            }else {
+
+            }
+        }
         nuevoProyecto = (Proyecto) extras.get(Constantes.EXTRA_PRYECTO);
-        initComponents();
         servicios = (ArrayList<Servicio>) extras.getSerializable(Constantes.EXTRA_LISTA_SERVICIO);
         configurarBtnDatePicker(btnFechaRelizar,txtFechaRealizar,"REALIZAR");
-        configurarSpinners();
-        configurarProvincias();
+
+       /* btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (video != null){
+                    onBackPressed();
+                }else{
+                    onBackPressed();
+                }
+            }
+        });*/
 
         //PULSAR AÑADIR SERVICIO
         btnAnadirServicio.setOnClickListener(v -> {
@@ -74,7 +103,7 @@ public class ConfigurarServicioAnadirVideo extends AppCompatActivity {
                     Toast.makeText(ConfigurarServicioAnadirVideo.this, "INTRODUCE UNA DESCRIPCION", Toast.LENGTH_SHORT).show();
                 } else{
                     hora = LocalTime.of(Integer.parseInt(spinnerHora.getSelectedItem().toString()),Integer.parseInt(spinnerMinutos.getSelectedItem().toString()));
-                    provincia = spinnerProvincia.getSelectedItem().toString();
+                    provincia = (String) spinnerProvincia.getSelectedItem();
                     localidad = etLocalidad.getText().toString();
                     horasAContratar = Integer.parseInt(spinnerHorasContratar.getSelectedItem().toString());
                     descripcion = etDescripcion.getText().toString();
@@ -98,16 +127,65 @@ public class ConfigurarServicioAnadirVideo extends AppCompatActivity {
 
     }
 
+    private void rellenarCampos() {
+        txtFechaRealizar.setText(video.getFechaRealizar().toString());
+        etLocalidad.setText(video.getLocalidad());
+        etDescripcion.setText(video.getDescripcion());
+        cbMakingOff.setSelected(video.isMakingOff());
+
+        for (int i = 0; i < provincias.length; i++) {
+
+            if (video.getProvincia().equalsIgnoreCase(provincias[i])){
+                spinnerProvincia.setSelection(i);
+                break;
+            }
+        }
+
+        for (int i = 0; i < arrayListHorasAcontratar.size(); i++) {
+            System.out.println("horas a contratar: " + video.getDuracion() + " : " + arrayListHorasAcontratar.get(i));
+            if (String.valueOf(video.getDuracion()).equalsIgnoreCase(arrayListHorasAcontratar.get(i))){
+                spinnerHorasContratar.setSelection(i);
+                break;
+            }
+        }
+
+
+        for (int i = 0; i < arrayListDuracionVideo.size(); i++) {
+            System.out.println("duracion video : " + video.getDuracionVideo() + " : " + arrayListDuracionVideo.get(i));
+            if (video.getDuracionVideo() == Double.parseDouble(arrayListDuracionVideo.get(i))){
+                spinnerDuracionVideo.setSelection(i);
+                break;
+            }
+        }
+
+    }
+
+    private void desabilitarCampos() {
+        btnFechaRelizar.setEnabled(false);
+        spinnerHorasContratar.setEnabled(false);
+        spinnerHora.setEnabled(false);
+        spinnerMinutos.setEnabled(false);
+        spinnerDuracionVideo.setEnabled(false);
+        etDescripcion.setEnabled(false);
+        cbMakingOff.setEnabled(false);
+        btnAnadirServicio.setEnabled(false);
+        btnAnadirServicio.setActivated(false);
+        btnAnadirServicio.setVisibility(View.INVISIBLE);
+        spinnerProvincia.setEnabled(false);
+        etLocalidad.setEnabled(false);
+    }
+
     private void configurarProvincias() {
-        String [] provincias = {"Alava","Albacete","Alicante","Almería","Asturias","Avila","Badajoz","Barcelona","Burgos","Cáceres",
+        provincias = new String [] {"Alava","Albacete","Alicante","Almería","Asturias","Avila","Badajoz","Barcelona","Burgos","Cáceres",
                 "Cádiz","Cantabria","Castellón","Ciudad Real","Córdoba","La Coruña","Cuenca","Gerona","Granada","Guadalajara",
                 "Guipúzcoa","Huelva","Huesca","Islas Baleares","Jaén","León","Lérida","Lugo","Madrid","Málaga","Murcia","Navarra",
                 "Orense","Palencia","Las Palmas","Pontevedra","La Rioja","Salamanca","Segovia","Sevilla","Soria","Tarragona2",
                 "Santa Cruz de Tenerife","Teruel","Toledo","Valencia","Valladolid","Vizcaya","Zamora","Zaragoza"};
 
         ArrayList<String> arrayList = new ArrayList<>(Arrays.asList(provincias));
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this,R.layout.style_spinner,arrayList);
-        spinnerProvincia.setAdapter(arrayAdapter);
+        arrayAdapterProvincia = new ArrayAdapter<>(this,R.layout.style_spinner,arrayList);
+        spinnerProvincia.setAdapter(arrayAdapterProvincia);
+
     }
 
 
@@ -141,7 +219,7 @@ public class ConfigurarServicioAnadirVideo extends AppCompatActivity {
 
 
 
-        ArrayList<String> arrayList = new ArrayList<>(Arrays.asList(horas));
+        ArrayList<String> arrayList= new ArrayList<>(Arrays.asList(horas));
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this,R.layout.style_spinner,arrayList);
         spinnerHora.setAdapter(arrayAdapter);
 
@@ -149,12 +227,12 @@ public class ConfigurarServicioAnadirVideo extends AppCompatActivity {
         arrayAdapter = new ArrayAdapter<>(this,R.layout.style_spinner,arrayList);
         spinnerMinutos.setAdapter(arrayAdapter);
 
-        arrayList = new ArrayList<>(Arrays.asList(horasContratar));
-        arrayAdapter = new ArrayAdapter<>(this,R.layout.style_spinner,arrayList);
+        arrayListHorasAcontratar = new ArrayList<>(Arrays.asList(horasContratar));
+        arrayAdapter = new ArrayAdapter<>(this,R.layout.style_spinner,arrayListHorasAcontratar);
         spinnerHorasContratar.setAdapter(arrayAdapter);
 
-        arrayList = new ArrayList<>(Arrays.asList(minutosDuracion));
-        arrayAdapter = new ArrayAdapter<>(this,R.layout.style_spinner,arrayList);
+        arrayListDuracionVideo = new ArrayList<>(Arrays.asList(minutosDuracion));
+        arrayAdapter = new ArrayAdapter<>(this,R.layout.style_spinner,arrayListDuracionVideo);
         spinnerDuracionVideo.setAdapter(arrayAdapter);
     }
 
@@ -221,6 +299,7 @@ public class ConfigurarServicioAnadirVideo extends AppCompatActivity {
 
     private void initComponents() {
         btnFechaRelizar = findViewById(R.id.btnFechaRealizar);
+        btnBack = findViewById(R.id.btnBack);
         txtFechaRealizar = findViewById(R.id.txtFechaRealizar);
         btnAnadirServicio = findViewById(R.id.btnAnadirServicio);
         spinnerHora = findViewById(R.id.spinnerHora);

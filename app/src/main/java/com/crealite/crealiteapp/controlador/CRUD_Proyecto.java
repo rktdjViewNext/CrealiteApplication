@@ -138,7 +138,12 @@ public class CRUD_Proyecto {
 
                                 //int presupuestoId = proyectoJson.getInt("presupuesto_id");
                                 int clienteId = proyectoJson.getInt("cliente_id");
-                                Proyecto proyecto = new Proyecto(id, nombre, pagado, null, crud_clientes.searchById(clienteId));
+
+                                int finalizadoInt = proyectoJson.getInt("finalizado");
+                                boolean finalizado = false;
+                                if (finalizadoInt == 1) pagado = true;
+
+                                Proyecto proyecto = new Proyecto(id, nombre, pagado, null, crud_clientes.searchById(clienteId),finalizado);
                                 proyectos.add(proyecto);
                             }
                             Log.d("CRUD_Proyectos", "Proyectos obtenidos correctamente");
@@ -188,6 +193,33 @@ public class CRUD_Proyecto {
             }
         }
         return null;
+    }
+
+    public ArrayList<Proyecto> obtenerProyectosPagadosCliente(Cliente cliente) {
+        ArrayList<Proyecto>proyectosPagados = new ArrayList<>();
+        for (Proyecto p:proyectos
+             ) {
+            if (p.getCliente().getId() == cliente.getId()){
+                if (p.isPagado()){
+                    proyectosPagados.add(p);
+                }
+            }
+        }
+        return proyectosPagados;
+    }
+
+    public ArrayList<Proyecto> obtenerProyectosFinalizadosCliente(Cliente cliente) {
+
+        ArrayList<Proyecto>proyectosPagados = new ArrayList<>();
+        for (Proyecto p:proyectos
+        ) {
+            if (p.getCliente().getId() == cliente.getId()){
+                if (p.getFinalizado()){
+                    proyectosPagados.add(p);
+                }
+            }
+        }
+        return proyectosPagados;
     }
 
     public interface ResponseCallback {

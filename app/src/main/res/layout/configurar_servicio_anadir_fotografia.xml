@@ -354,7 +354,7 @@
                 android:gravity="center">
 
                 <Spinner
-                    android:id="@+id/spinnerMinutosDuracion"
+                    android:id="@+id/spinnerCantidadFotos"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     tools:ignore="TouchTargetSizeCheck" />

@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.crealite.crealiteapp.R;
-import com.crealite.crealiteapp.modelo.Diseno;
 import com.crealite.crealiteapp.modelo.Fotografia;
 import com.crealite.crealiteapp.modelo.Servicio;
 import com.crealite.crealiteapp.modelo.Video;
@@ -37,7 +36,7 @@ public class listServicioAdapter extends ArrayAdapter<Servicio> {
 
         ImageButton btnRemoveItem = convertView.findViewById(R.id.btnRemove);
         TextView tipoServicio = convertView.findViewById(R.id.tipoServicioItem);
-        TextView fechaServicio = convertView.findViewById(R.id.fechaServicioItem);
+        TextView fechaServicio = convertView.findViewById(R.id.txtNumServicios);
 
 
         fechaServicio.setText(s.getFechaRealizar().toString());

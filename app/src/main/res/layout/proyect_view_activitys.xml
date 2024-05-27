@@ -115,7 +115,7 @@
         android:textSize="14sp" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnRegistrarse"
+        android:id="@+id/btnPagar"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="210dp"
         android:layout_height="wrap_content"

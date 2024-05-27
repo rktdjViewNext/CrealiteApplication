@@ -89,7 +89,7 @@ public class AnadirServicioProyecto extends AppCompatActivity {
         }else{
             Diseno diseno = new Diseno();
             diseno.setTipo(spinner.getSelectedItem().toString());
-            Intent intent = new Intent(this, ConfigurarServicioAnadirFotografia.class);
+            Intent intent = new Intent(this, ConfigurarServicioAnadirDiseno.class);
             intent.putExtra(Constantes.EXTRA_SERVICIO, diseno);
             intent.putExtra(Constantes.EXTRA_PRYECTO,nuevoProyecto);
             intent.putExtra(Constantes.EXTRA_LISTA_SERVICIO,servicios);
@@ -107,6 +107,7 @@ public class AnadirServicioProyecto extends AppCompatActivity {
         btnFotografia = findViewById(R.id.btnServicioFotografiaAdd);
         btnBack = findViewById(R.id.btnBack);
         btnAddServicio = findViewById(R.id.btnAddServicio);
+        tipoServicio = "FOTOGRAFIA";
 
     }
 

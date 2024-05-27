@@ -12,7 +12,6 @@ import androidx.annotation.Nullable;
 
 import com.crealite.crealiteapp.R;
 import com.crealite.crealiteapp.modelo.Proyecto;
-import com.crealite.crealiteapp.modelo.Servicio;
 
 import java.util.ArrayList;
 
@@ -32,10 +31,14 @@ public class listUltimosProyectos extends ArrayAdapter<Proyecto> {
         }
 
         TextView tipoServicio = convertView.findViewById(R.id.tipoServicioItem);
-        TextView fechaServicio = convertView.findViewById(R.id.fechaServicioItem);
+        TextView fechaServicio = convertView.findViewById(R.id.txtNumServicios);
 
-        tipoServicio.setText(p.getNombre());
-        fechaServicio.setText(p.getCliente().getNombre());
+        if (p != null) {
+            tipoServicio.setText(p.getNombre());
+        }
+        if (p != null) {
+            fechaServicio.setText(p.getCliente().getNombre());
+        }
 
         return convertView;
     }

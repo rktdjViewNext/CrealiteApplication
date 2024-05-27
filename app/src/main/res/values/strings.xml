@@ -63,4 +63,8 @@
     <string name="ancho2">Ancho:</string>
     <string name="animado">ANIMADO</string>
     <string name="ciudad">Ciudad</string>
+    <string name="fotografia2">FOTOGRAFIA</string>
+    <string name="finalizado">FINALIZADO:</string>
+    <string name="pagado">PAGADO:</string>
+    <string name="servicios2">SERVICIOS:</string>
 </resources>

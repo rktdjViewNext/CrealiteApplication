@@ -10,22 +10,25 @@ public class Proyecto implements Serializable {
     private boolean pagado;
     private Presupuesto presupuesto;
     private Cliente cliente;
+    private Boolean finalizado;
 
 
     // Constructor
-    public Proyecto(int id, String nombre, boolean pagado, Presupuesto presupuesto, Cliente cliente) {
+    public Proyecto(int id, String nombre, boolean pagado, Presupuesto presupuesto, Cliente cliente, boolean finalizado) {
         this.id = id;
         this.pagado = pagado;
         this.presupuesto = presupuesto;
         this.cliente = cliente;
         this.nombre = nombre;
+        this.finalizado = finalizado;
     }
 
-    public Proyecto(String nombre, boolean pagado, Presupuesto presupuesto, Cliente cliente) {
+    public Proyecto(String nombre, boolean pagado, Presupuesto presupuesto, Cliente cliente, boolean finalizado) {
         this.pagado = pagado;
         this.presupuesto = presupuesto;
         this.cliente = cliente;
         this.nombre = nombre;
+        this.finalizado = finalizado;
     }
 
     public Proyecto(String nombre, Cliente cliente) {
@@ -71,6 +74,18 @@ public class Proyecto implements Serializable {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public void setPresupuesto(Presupuesto presupuesto) {
+        this.presupuesto = presupuesto;
+    }
+
+    public Boolean getFinalizado() {
+        return finalizado;
+    }
+
+    public void setFinalizado(Boolean finalizado) {
+        this.finalizado = finalizado;
     }
 
     @Override

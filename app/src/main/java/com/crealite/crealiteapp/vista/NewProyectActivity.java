@@ -93,7 +93,7 @@ public class NewProyectActivity extends AppCompatActivity {
 
         //PULSAR CONFIRMAR PROYECTO
         btnSolcitarPresupuesto.setOnClickListener(v -> {
-            nuevoProyecto = new Proyecto(etNombreProyecto.getText().toString(), false, null, nuevoProyecto.getCliente());
+            nuevoProyecto = new Proyecto(etNombreProyecto.getText().toString(), false, null, nuevoProyecto.getCliente(),false);
             if (!etNombreProyecto.getText().toString().isEmpty()){
                 if (crudProyecto.searchByName(new Proyecto(etNombreProyecto.getText().toString(),cliente)) == null){
                     if (!servicios.isEmpty()){
@@ -105,7 +105,6 @@ public class NewProyectActivity extends AppCompatActivity {
                         crudProyecto.obtenerTodosProyectos(new CRUD_Proyecto.ResponseCallback() {
                             @Override
                             public void onComplete(boolean success, List<Proyecto> proyectos) {
-                                System.out.println(crudProyecto.searchByName(nuevoProyecto));
                                 crudProyecto.listarProyectos();
                                 CRUD_EstadoProyecto crudEstadoProyecto = new CRUD_EstadoProyecto(crudProyecto.searchByName(nuevoProyecto));
                                 for (EstadoProyecto estado:crudEstadoProyecto.getEstados()
@@ -121,7 +120,12 @@ public class NewProyectActivity extends AppCompatActivity {
                                 for (Servicio servicio : servicios) {
                                     servicio.setProyecto(crudProyecto.searchByName(nuevoProyecto));
                                     if (servicio instanceof Fotografia) {
-
+                                        crudServicios.addFotografia((Fotografia) servicio, new CRUD_Servicios.ResponseCallback() {
+                                            @Override
+                                            public void onComplete(boolean success, List<Servicio> servicios) {
+                                                System.out.println("FOTOGRAFIA AÑADIDO");
+                                            }
+                                        });
                                     } else if (servicio instanceof Video) {
                                         crudServicios.addVideo((Video) servicio, new CRUD_Servicios.ResponseCallback() {
                                             @Override
@@ -131,7 +135,12 @@ public class NewProyectActivity extends AppCompatActivity {
                                         });
 
                                     } else if (servicio instanceof Diseno) {
-
+                                        crudServicios.addDiseno((Diseno) servicio, new CRUD_Servicios.ResponseCallback() {
+                                            @Override
+                                            public void onComplete(boolean success, List<Servicio> servicios) {
+                                                System.out.println("DISENO AÑADIDO");
+                                            }
+                                        });
                                     }
                                 }
 
