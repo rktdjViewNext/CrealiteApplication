@@ -37,53 +37,6 @@ public class CRUD_Servicios {
         crudProyecto = new CRUD_Proyecto();
     }
 
-    @SuppressLint("StaticFieldLeak")
-    public void insertarServicio(JSONObject jsonParam, final ResponseCallback callback) {
-        new AsyncTask<Void, Void, Boolean>() {
-            @Override
-            protected Boolean doInBackground(Void... voids) {
-                try {
-                    URL url = new URL(Constantes.SERVER_URL + "/insertarServicio.php");
-                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                    conn.setRequestMethod("POST");
-                    conn.setRequestProperty("Content-Type", "application/json; utf-8");
-                    conn.setRequestProperty("Accept", "application/json");
-                    conn.setDoOutput(true);
-
-                    PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(conn.getOutputStream(), "UTF-8")));
-                    out.print(jsonParam.toString());
-                    out.flush();
-                    out.close();
-
-                    int responseCode = conn.getResponseCode();
-                    if (responseCode == HttpURLConnection.HTTP_OK) {
-                        BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                        String inputLine;
-                        StringBuilder response = new StringBuilder();
-                        while ((inputLine = in.readLine()) != null) {
-                            response.append(inputLine);
-                        }
-                        in.close();
-                        return true;
-                    } else {
-                        Log.e(Constantes.TAG, "Server returned non-OK status: " + responseCode);
-                        return false;
-                    }
-                } catch (Exception e) {
-                    Log.e(Constantes.TAG, "Error sending request", e);
-                    return false;
-                }
-            }
-
-            @Override
-            protected void onPostExecute(Boolean result) {
-                if (callback != null) {
-                    callback.onComplete(result, servicios);
-                }
-            }
-        }.execute();
-    }
-
 
     @SuppressLint("StaticFieldLeak")
     public void obtenerDisenosAll(final ResponseCallback callback) {
@@ -107,7 +60,6 @@ public class CRUD_Servicios {
                     JSONObject jsonResponse = new JSONObject(content.toString());
                     if (jsonResponse.getString("status").equals("success")) {
                         JSONArray jsonArray = jsonResponse.getJSONArray("disenos");
-                        servicios.clear();
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
                             Diseno diseno = new Diseno();
@@ -168,7 +120,7 @@ public class CRUD_Servicios {
                     }
                     in.close();
                     conn.disconnect();
-
+                    System.out.println(content.toString());
                     JSONObject jsonResponse = new JSONObject(content.toString());
                     if (jsonResponse.getString("status").equals("success")) {
                         JSONArray jsonArray = jsonResponse.getJSONArray("fotografias");
@@ -188,6 +140,9 @@ public class CRUD_Servicios {
                             fotografia.setProvincia(jsonObject.getString("provincia"));
                             fotografia.setEmpleadosNecesarios(jsonObject.getInt("empleadosNecesarios"));
                             Proyecto proyecto = crudProyecto.search(jsonObject.getInt("proyecto_id"));
+                            boolean finalizado = false;
+                            if (jsonObject.getInt("finalizado") == 1) finalizado = true;
+                            fotografia.setFinalizano(finalizado);
                             fotografia.setProyecto(proyecto);
                             servicios.add(fotografia);
                         }
@@ -207,8 +162,6 @@ public class CRUD_Servicios {
             }
         }.execute();
     }
-
-
 
     @SuppressLint("StaticFieldLeak")
     public void obtenerVideosAll(final ResponseCallback callback) {
@@ -397,7 +350,6 @@ public class CRUD_Servicios {
             return false;
         }
     }
-
 
     public boolean addFotografia(Fotografia fotografia, final ResponseCallback callback) {
         try {

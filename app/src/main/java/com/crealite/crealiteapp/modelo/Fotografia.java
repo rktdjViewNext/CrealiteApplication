@@ -7,8 +7,8 @@ public class Fotografia extends Servicio{
     private int cantidadFotos;
     private String tipo;
     // Constructor
-    public Fotografia(double precioServicio, String descripcion, LocalDate fechaRealizar, int duracion, int cantidadFotos, String provincia, String localidad, String tipo,int empleadosNecesarios, Proyecto proyecto) {
-        super(precioServicio, descripcion, fechaRealizar, duracion, provincia, localidad,empleadosNecesarios,proyecto);
+    public Fotografia(double precioServicio, String descripcion, LocalDate fechaRealizar, int duracion, int cantidadFotos, String provincia, String localidad, String tipo,int empleadosNecesarios, Proyecto proyecto, boolean finalizado) {
+        super(precioServicio, descripcion, fechaRealizar, duracion, provincia, localidad,empleadosNecesarios,proyecto, finalizado);
         this.cantidadFotos = cantidadFotos;
         this.tipo = tipo;
     }

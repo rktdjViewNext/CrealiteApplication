@@ -46,7 +46,7 @@ public class ProyectViewActivity extends AppCompatActivity {
     private CRUD_EstadoProyecto crudEstadoProyecto;
     private ImageButton btnBack;
     private Button btnPagar;
-
+    boolean bandera;
 
 
     @Override
@@ -57,12 +57,15 @@ public class ProyectViewActivity extends AppCompatActivity {
 
         initComponents();
 
+
         //RECOGER DATOS DEL ACTIVITY ANTERIOR
         Bundle extras = getIntent().getExtras();
         if(extras != null){
             proyecto = (Proyecto) extras.get(Constantes.EXTRA_PRYECTO);
+            bandera = extras.getBoolean("VERDADERO");
+            System.out.println(bandera);
         }
-        System.out.println("como llega el proyecto: " + proyecto);
+
         //configurarBotonPagar();
 
         crudServicios.obtenerTodosServicios((success, servicios) -> {
@@ -76,18 +79,19 @@ public class ProyectViewActivity extends AppCompatActivity {
         //MODIFICAR NOMBRE PROYECTO
         tvNombreProyecto.setText(proyecto.getNombre());
 
-        btnBack.setOnClickListener(v -> iniciarHomeActivity());
-
-        OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
+        btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void handleOnBackPressed() {
-                Intent intent = new Intent(ProyectViewActivity.this, ListProyectsActivity.class);
-                intent.putExtra(Constantes.EXTRA_CLIENTE,proyecto.getCliente());
-                startActivity(intent);
+            public void onClick(View v) {
+                if(bandera){
+                    Intent intent = new Intent(ProyectViewActivity.this, HomePageActivity.class);
+                    intent.putExtra(Constantes.EXTRA_CLIENTE,proyecto.getCliente());
+                    startActivity(intent);
+                }else{
+                    getOnBackPressedDispatcher().onBackPressed();
+
+                }
             }
-        };
-        getOnBackPressedDispatcher().addCallback(this,onBackPressedCallback);
-        onBackPressedCallback.setEnabled(true);
+        });
 
 
     }
@@ -153,6 +157,7 @@ public class ProyectViewActivity extends AppCompatActivity {
         crudEstadoProyecto = new CRUD_EstadoProyecto();
         btnBack = findViewById(R.id.btnBack);
         btnPagar= findViewById(R.id.btnPagar);
+        bandera = false;
     }
 
     @Override
@@ -166,6 +171,5 @@ public class ProyectViewActivity extends AppCompatActivity {
         return null;
 
     }
-
 
 }

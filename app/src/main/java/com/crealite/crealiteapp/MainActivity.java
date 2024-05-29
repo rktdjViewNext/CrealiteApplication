@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     private AppCompatButton btnIniciarSesion;
     private String usuario, contrasena;
     private CRUD_Clientes crud_clientes;
-    private CRUD_Proyecto crudProyecto;
 
 
     @Override
@@ -117,6 +116,6 @@ public class MainActivity extends AppCompatActivity {
         tvRegistrarme = findViewById(R.id.textViewRegistrarme);
         btnIniciarSesion = findViewById(R.id.btnLogin);
         crud_clientes = new CRUD_Clientes();
-        crudProyecto = new CRUD_Proyecto();
+
     }
 }

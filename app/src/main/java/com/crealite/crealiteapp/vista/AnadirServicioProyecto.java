@@ -1,5 +1,9 @@
 package com.crealite.crealiteapp.vista;
 
+import static com.crealite.crealiteapp.controlador.Constantes.TIPO_SERVICIO_DISENO;
+import static com.crealite.crealiteapp.controlador.Constantes.TIPO_SERVICIO_FOTOGRAFIA;
+import static com.crealite.crealiteapp.controlador.Constantes.TIPO_SERVICIO_VIDEO;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -7,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -72,7 +75,9 @@ public class AnadirServicioProyecto extends AppCompatActivity {
 
         if (tipoServicio.equals("FILLMAKING")){
             Video video = new Video();
+            video.setFinalizano(false);
             video.setTipo(spinner.getSelectedItem().toString());
+            configurarServicio(video,TIPO_SERVICIO_VIDEO);
             Intent intent = new Intent(this, ConfigurarServicioAnadirVideo.class);
             intent.putExtra(Constantes.EXTRA_SERVICIO, video);
             intent.putExtra(Constantes.EXTRA_PRYECTO,nuevoProyecto);
@@ -80,21 +85,179 @@ public class AnadirServicioProyecto extends AppCompatActivity {
             startActivity(intent);
         }else if (tipoServicio.equals("FOTOGRAFIA")){
             Fotografia fotografia = new Fotografia();
+            fotografia.setFinalizano(false);
             fotografia.setTipo(spinner.getSelectedItem().toString());
+            configurarServicio(fotografia,TIPO_SERVICIO_FOTOGRAFIA);
             Intent intent = new Intent(this, ConfigurarServicioAnadirFotografia.class);
             intent.putExtra(Constantes.EXTRA_SERVICIO, fotografia);
             intent.putExtra(Constantes.EXTRA_PRYECTO,nuevoProyecto);
             intent.putExtra(Constantes.EXTRA_LISTA_SERVICIO,servicios);
             startActivity(intent);
-        }else{
+        }else if (tipoServicio.equals("DISENO")){
             Diseno diseno = new Diseno();
+            diseno.setFinalizano(false);
             diseno.setTipo(spinner.getSelectedItem().toString());
+            configurarServicio(diseno,TIPO_SERVICIO_DISENO);
             Intent intent = new Intent(this, ConfigurarServicioAnadirDiseno.class);
             intent.putExtra(Constantes.EXTRA_SERVICIO, diseno);
             intent.putExtra(Constantes.EXTRA_PRYECTO,nuevoProyecto);
             intent.putExtra(Constantes.EXTRA_LISTA_SERVICIO,servicios);
             startActivity(intent);
         }
+
+
+    }
+
+    private void configurarServicio(Servicio servicio, String[] tipoServicioVideo) {
+
+        for (int i = 0; i < tipoServicioVideo.length; i++) {
+            if (tipoServicioVideo[i].equalsIgnoreCase(spinner.getSelectedItem().toString())){
+                if (servicio instanceof Video){
+                    System.out.println("SOY UN SERVICIO DE VIDEO");
+                    switch (i){
+                        case 0:
+                            servicio.setPrecioServicio(800);
+                            servicio.setEmpleadosNecesarios(3);
+                            break;
+                        case 1:
+                            servicio.setPrecioServicio(600);
+                            servicio.setEmpleadosNecesarios(2);
+                            break;
+                        case 2:
+                            servicio.setPrecioServicio(200);
+                            servicio.setEmpleadosNecesarios(1);
+                            break;
+                        case 3:
+                            servicio.setPrecioServicio(800);
+                            servicio.setEmpleadosNecesarios(5);
+                            break;
+                        case 4:
+                            servicio.setPrecioServicio(300);
+                            servicio.setEmpleadosNecesarios(2);
+                            break;
+                        case 5:
+                            servicio.setPrecioServicio(100);
+                            servicio.setEmpleadosNecesarios(1);
+                            break;
+                        case 6:
+                            servicio.setPrecioServicio(500);
+                            servicio.setEmpleadosNecesarios(4);
+                            break;
+                        case 7:
+                            servicio.setPrecioServicio(300);
+                            servicio.setEmpleadosNecesarios(2);
+                            break;
+                        case 8:
+                            servicio.setPrecioServicio(200);
+                            servicio.setEmpleadosNecesarios(2);
+                            break;
+                        case 9:
+                            servicio.setPrecioServicio(500);
+                            servicio.setEmpleadosNecesarios(4);
+                            break;
+                    }
+                } else if (servicio instanceof Fotografia){
+                    System.out.println("SOY UN SERVICIO DE FOTO");
+                    switch (i){
+                        case 0:
+                            servicio.setPrecioServicio(800);
+                            servicio.setEmpleadosNecesarios(3);
+                            break;
+                        case 1:
+                            servicio.setPrecioServicio(600);
+                            servicio.setEmpleadosNecesarios(2);
+                            break;
+                        case 2:
+                            servicio.setPrecioServicio(200);
+                            servicio.setEmpleadosNecesarios(1);
+                            break;
+                        case 3:
+                            servicio.setPrecioServicio(800);
+                            servicio.setEmpleadosNecesarios(5);
+                            break;
+                        case 4:
+                            servicio.setPrecioServicio(300);
+                            servicio.setEmpleadosNecesarios(2);
+                            break;
+                        case 5:
+                            servicio.setPrecioServicio(100);
+                            servicio.setEmpleadosNecesarios(1);
+                            break;
+                        case 6:
+                            servicio.setPrecioServicio(500);
+                            servicio.setEmpleadosNecesarios(4);
+                            break;
+                        case 7:
+                            servicio.setPrecioServicio(300);
+                            servicio.setEmpleadosNecesarios(2);
+                            break;
+                        case 8:
+                            servicio.setPrecioServicio(200);
+                            servicio.setEmpleadosNecesarios(2);
+                            break;
+                        case 9:
+                            servicio.setPrecioServicio(500);
+                            servicio.setEmpleadosNecesarios(4);
+                            break;
+                        case 10:
+                            servicio.setPrecioServicio(100);
+                            servicio.setEmpleadosNecesarios(2);
+                            break;
+                        case 11:
+                            servicio.setPrecioServicio(300);
+                            servicio.setEmpleadosNecesarios(2);
+                            break;
+                    }
+                } else if (servicio instanceof Diseno){
+                    System.out.println("SOY UN SERVICIO DE DISEÑO");
+                    switch (i){
+                        case 0:
+                            servicio.setPrecioServicio(50);
+                            servicio.setEmpleadosNecesarios(1);
+                            break;
+                        case 1:
+                            servicio.setPrecioServicio(30);
+                            servicio.setEmpleadosNecesarios(1);
+                            break;
+                        case 2:
+                            servicio.setPrecioServicio(60);
+                            servicio.setEmpleadosNecesarios(1);
+                            break;
+                        case 3:
+                            servicio.setPrecioServicio(70);
+                            servicio.setEmpleadosNecesarios(1);
+                            break;
+                        case 4:
+                            servicio.setPrecioServicio(150);
+                            servicio.setEmpleadosNecesarios(2);
+                            break;
+                        case 5:
+                            servicio.setPrecioServicio(200);
+                            servicio.setEmpleadosNecesarios(2);
+                            break;
+                        case 6:
+                            servicio.setPrecioServicio(300);
+                            servicio.setEmpleadosNecesarios(3);
+                            break;
+                        case 7:
+                            servicio.setPrecioServicio(70);
+                            servicio.setEmpleadosNecesarios(1);
+                            break;
+                        case 8:
+                            servicio.setPrecioServicio(30);
+                            servicio.setEmpleadosNecesarios(1);
+                            break;
+                        case 9:
+                            servicio.setPrecioServicio(25);
+                            servicio.setEmpleadosNecesarios(1);
+                            break;
+
+                    }
+                }
+            }
+        }
+
+        System.out.println("EMPLEADOS NECESARIOS: " + servicio.getEmpleadosNecesarios());
 
 
     }
@@ -112,7 +275,7 @@ public class AnadirServicioProyecto extends AppCompatActivity {
     }
 
     private void cargarDatosSpinnerServicios(){
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this,R.layout.style_spinner, Constantes.TIPO_SERVICIO_VIDEO);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this,R.layout.style_spinner, TIPO_SERVICIO_FOTOGRAFIA);
         spinner.setAdapter(arrayAdapter);
     }
 
@@ -122,7 +285,7 @@ public class AnadirServicioProyecto extends AppCompatActivity {
         btnFotografia.setOnClickListener(v -> {
             //CAMBIAR COLOR FONDO BOTONES
             cambiarColorBotones(btnFotografia,btnFilmmaking,btnDiseno);
-            spinner.setAdapter(new ArrayAdapter<>(this,R.layout.style_spinner, Constantes.TIPO_SERVICIO_VIDEO));
+            spinner.setAdapter(new ArrayAdapter<>(this,R.layout.style_spinner, TIPO_SERVICIO_FOTOGRAFIA));
             tipoServicio = "FOTOGRAFIA";
         });
 
@@ -131,7 +294,7 @@ public class AnadirServicioProyecto extends AppCompatActivity {
         btnFilmmaking.setOnClickListener(v -> {
             //CAMBIAR COLOR FONDO BOTONES
             cambiarColorBotones(btnFilmmaking,btnFotografia,btnDiseno);
-            spinner.setAdapter(new ArrayAdapter<>(this,R.layout.style_spinner,Constantes.TIPO_SERVICIO_VIDEO));
+            spinner.setAdapter(new ArrayAdapter<>(this,R.layout.style_spinner, TIPO_SERVICIO_VIDEO));
             tipoServicio = "FILLMAKING";
         });
 
@@ -140,7 +303,7 @@ public class AnadirServicioProyecto extends AppCompatActivity {
         btnDiseno.setOnClickListener(v -> {
             //CAMBIAR COLOR FONDO BOTONES
             cambiarColorBotones(btnDiseno,btnFotografia,btnFilmmaking);
-            spinner.setAdapter(new ArrayAdapter<>(this,R.layout.style_spinner, Constantes.TIPO_SERVICIO_VIDEO));
+            spinner.setAdapter(new ArrayAdapter<>(this,R.layout.style_spinner, TIPO_SERVICIO_DISENO));
             tipoServicio = "DISENO";
         });
     }

@@ -1,7 +1,6 @@
 package com.crealite.crealiteapp.modelo;
 
 import android.graphics.Bitmap;
-import android.net.Uri;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -17,10 +16,10 @@ public class Usuario implements Serializable {
     private String correo;
     private LocalDate fechaNacimiento;
     private boolean admin;
-    private Bitmap foto;
+    private byte[] foto;
 
     // Constructor
-    public Usuario(int id,String Usuario, String contraseña, String nombre, String apellidos, String telefono, String correo, LocalDate fechaNacimiento, boolean admin, Bitmap foto) {
+    public Usuario(int id,String Usuario, String contraseña, String nombre, String apellidos, String telefono, String correo, LocalDate fechaNacimiento, boolean admin, byte[] foto) {
         this.id = id;
         this.usuario = Usuario;
         this.contrasena = contraseña;
@@ -111,11 +110,11 @@ public class Usuario implements Serializable {
         this.id = id;
     }
 
-    public Bitmap getFoto() {
+    public byte[] getFoto() {
         return foto;
     }
 
-    public void setFoto(Bitmap foto) {
+    public void setFoto(byte [] foto) {
         this.foto = foto;
     }
 

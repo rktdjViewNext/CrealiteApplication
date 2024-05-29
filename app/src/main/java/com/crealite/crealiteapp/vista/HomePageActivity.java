@@ -91,7 +91,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
 
         contarProyectosEnCurso();
-
+        cargarFotoPerfil();
         asignarMenu();
         SeleccionarFotoDePerfil();
         cargarUltimosProyectos();
@@ -276,7 +276,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         // Asumiendo que tienes un método en tu controlador para obtener la foto de perfil
         new Thread(() -> {
 
-            Bitmap foto = cliente.getFoto();
+            Bitmap foto = BitmapFactory.decodeByteArray(cliente.getFoto(), 0, cliente.getFoto().length);
             System.out.println(foto);
             runOnUiThread(() -> {
                 if (foto != null) {

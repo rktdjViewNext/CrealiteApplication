@@ -80,16 +80,13 @@ public class ConfigurarServicioAnadirVideo extends AppCompatActivity {
         servicios = (ArrayList<Servicio>) extras.getSerializable(Constantes.EXTRA_LISTA_SERVICIO);
         configurarBtnDatePicker(btnFechaRelizar,txtFechaRealizar,"REALIZAR");
 
-       /* btnBack.setOnClickListener(new View.OnClickListener() {
+        btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (video != null){
-                    onBackPressed();
-                }else{
-                    onBackPressed();
-                }
+                getOnBackPressedDispatcher().onBackPressed();
+                System.out.println("HOLAA");
             }
-        });*/
+        });
 
         //PULSAR AÑADIR SERVICIO
         btnAnadirServicio.setOnClickListener(v -> {

@@ -25,7 +25,7 @@
                 android:layout_marginTop="30dp">
 
                 <ImageButton
-                    android:id="@+id/imageButton"
+                    android:id="@+id/btnBack"
                     android:layout_width="60dp"
                     android:layout_height="50dp"
                     android:background="@drawable/trasparent_background"

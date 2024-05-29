@@ -210,24 +210,29 @@ public class ListProyectsActivity extends AppCompatActivity implements Navigatio
 
 
     public void configurarBuscador(ArrayList<Proyecto> proyectos){
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                ArrayList<Proyecto> proyectosBuscados = new ArrayList<>();
-                for (Proyecto p: proyectos){
-                    if (p.getNombre().toLowerCase().contains(newText)){
-                        proyectosBuscados.add(p);
-                    }
+        if (searchView != null){
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    return false;
                 }
 
-                iniciarListView(proyectosBuscados);
-                return true;
-            }
-        });
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    ArrayList<Proyecto> proyectosBuscados = new ArrayList<>();
+                    for (Proyecto p: proyectos){
+                        if (p.getNombre().toLowerCase().contains(newText)){
+                            proyectosBuscados.add(p);
+                        }
+                    }
+
+                    iniciarListView(proyectosBuscados);
+                    return true;
+                }
+            });
+        }else {
+            System.out.println("EL SEARCH ESTA NULO");
+        }
+
     }
 }

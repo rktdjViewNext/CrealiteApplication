@@ -64,12 +64,15 @@ public class listServicioContratadoAdapter extends ArrayAdapter<Servicio> {
         btnDescripcion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                s = getItem(position);
                 if (s instanceof Fotografia){
+                    System.out.println("LLEGA UNA FOTO");
                     iniciarConfigrarServicio(ConfigurarServicioAnadirFotografia.class,position);
                 }else if (s instanceof Video){
+                    System.out.println("LLEGA UN VIDEO");
                     iniciarConfigrarServicio(ConfigurarServicioAnadirVideo.class,position);
                 }else if (s instanceof Diseno){
+                    System.out.println("LLEGA UN DISEÑO");
                     iniciarConfigrarServicio(ConfigurarServicioAnadirDiseno.class,position);
                 }else {
                     Toast.makeText(context, "NO ES NINGUNO", Toast.LENGTH_SHORT).show();
@@ -81,8 +84,19 @@ public class listServicioContratadoAdapter extends ArrayAdapter<Servicio> {
     }
 
     private void iniciarConfigrarServicio(Class<?> configurarServicioAnadir, int position){
+
+        if (getItem(position) instanceof Fotografia){
+            System.out.println("LLEGA UNA FOTO");
+        }else if (getItem(position) instanceof Video){
+            System.out.println("LLEGA UN VIDEO");
+        }else if (getItem(position) instanceof Diseno){
+            System.out.println("LLEGA UN DISEÑO");
+
+        }else {
+
+        }
+
         Intent intent = new Intent(context, configurarServicioAnadir);
-        System.out.println("ESTA ES LA HORA CONTRATADA QUE SE LA PASA: " + s.getDuracion());
         intent.putExtra(Constantes.EXTRA_SERVICIO,getItem(position));
         context.startActivity(intent);
     }

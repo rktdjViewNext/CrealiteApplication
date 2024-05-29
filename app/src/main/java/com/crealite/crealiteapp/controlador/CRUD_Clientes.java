@@ -91,11 +91,9 @@ public class CRUD_Clientes {
                                 String profesion = clienteJson.getString("profesion");
                                 String ciudad = clienteJson.getString("ciudad");
 
-                                Bitmap foto = null;
-
+                                byte[] imageBytes = null;
                                 try {
                                     String fotoBase64 = clienteJson.getString("foto");
-                                    byte[] imageBytes = null;
                                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                         // Decodificar la cadena Base64
                                         imageBytes = java.util.Base64.getDecoder().decode(fotoBase64);
@@ -105,13 +103,8 @@ public class CRUD_Clientes {
                                         imageBytes = android.util.Base64.decode(fotoBase64, android.util.Base64.DEFAULT);
                                         System.out.println("Image bytes: " + Arrays.toString(imageBytes));
                                     }
-                                    // Decodificar el array de bytes en un Bitmap
-                                    foto = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-                                    if (foto != null) {
-                                        System.out.println("Bitmap creado correctamente");
-                                    } else {
-                                        System.out.println("Error al crear el Bitmap");
-                                    }
+
+
                                 } catch (IllegalArgumentException | JSONException e) {
                                     Log.e("CRUD_CLIENTES", "Error decoding photo from Base64", e);
                                 }
@@ -119,7 +112,7 @@ public class CRUD_Clientes {
 
 
 
-                                Cliente cliente = new Cliente(id, usuario, contrasena, nombre, apellidos, telefono, correo, fechaNacimiento, admin, foto, profesion, ciudad);
+                                Cliente cliente = new Cliente(id, usuario, contrasena, nombre, apellidos, telefono, correo, fechaNacimiento, admin, imageBytes, profesion, ciudad);
                                 clientesList.add(cliente);
                             }
                             Log.d("CRUD_CLIENTES", "Clientes obtenidos correctamente");
@@ -359,7 +352,7 @@ public class CRUD_Clientes {
     // Método auxiliar para convertir Bitmap a Base64
     private String bitmapToBase64(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 10, byteArrayOutputStream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
         byte[] byteArray = byteArrayOutputStream.toByteArray();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
             return Base64.encodeToString(byteArray, Base64.DEFAULT);

@@ -9,8 +9,8 @@ public class Diseno extends Servicio{
     private String tipo;
 
     // Constructor
-    public Diseno(double precioServicio, String descripcion, LocalDate fechaRealizar, int duracion, int empleadosNecesarios, String dimensiones, boolean animado, String provincia,String localidad, String tipo,Proyecto proyecto) {
-        super(precioServicio, descripcion, fechaRealizar, duracion,provincia,localidad,empleadosNecesarios, proyecto);
+    public Diseno(double precioServicio, String descripcion, LocalDate fechaRealizar, int duracion, int empleadosNecesarios, String dimensiones, boolean animado, String provincia,String localidad, String tipo,Proyecto proyecto,boolean finalizado) {
+        super(precioServicio, descripcion, fechaRealizar, duracion,provincia,localidad,empleadosNecesarios, proyecto,finalizado);
         this.dimensiones = dimensiones;
         this.animado = animado;
         this.tipo = tipo;

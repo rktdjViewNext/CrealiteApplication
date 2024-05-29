@@ -10,8 +10,8 @@ public class Video extends Servicio implements Serializable {
     private String tipo;
 
     // Constructor
-    public Video( double precioServicio, String descripcion, LocalDate fechaRealizar, int duracion, double duracionVideo, boolean makingOff,String provincia,String localidad, String tipo, int empleadosNecesarios,Proyecto proyecto) {
-        super(precioServicio, descripcion, fechaRealizar, duracion, provincia,localidad,empleadosNecesarios,proyecto);
+    public Video( double precioServicio, String descripcion, LocalDate fechaRealizar, int duracion, double duracionVideo, boolean makingOff,String provincia,String localidad, String tipo, int empleadosNecesarios,Proyecto proyecto, boolean finalizado) {
+        super(precioServicio, descripcion, fechaRealizar, duracion, provincia,localidad,empleadosNecesarios,proyecto,finalizado);
         this.duracionVideo = duracionVideo;
         this.makingOff = makingOff;
         this.tipo = tipo;

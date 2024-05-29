@@ -17,10 +17,11 @@ public class Servicio implements Serializable {
     private int empleadosNecesarios;
     private boolean empleadosAsignados;
     private Proyecto proyecto;
+    private boolean finalizano;
 
 
     // Constructor
-    public Servicio(double precioServicio, String descripcion, LocalDate fechaRealizar, int duracion, String provincia, String localidad, int empleadosNecesarios, Proyecto proyecto) {
+    public Servicio(double precioServicio, String descripcion, LocalDate fechaRealizar, int duracion, String provincia, String localidad, int empleadosNecesarios, Proyecto proyecto, boolean finalizano) {
         this.precioServicio = precioServicio;
         this.descripcion = descripcion;
         this.fechaRealizar = fechaRealizar;
@@ -29,10 +30,11 @@ public class Servicio implements Serializable {
         this.localidad = localidad;
         this.empleadosNecesarios = empleadosNecesarios;
         this.proyecto = proyecto;
+        this.finalizano = finalizano;
 
     }
 
-    public Servicio(int id, double precioServicio, String descripcion, LocalDate fechaRealizar, int duracion, String localidad, String provincia, int empleadosNecesarios, Proyecto proyecto) {
+    public Servicio(int id, double precioServicio, String descripcion, LocalDate fechaRealizar, int duracion, String localidad, String provincia, int empleadosNecesarios, Proyecto proyecto, boolean finalizano) {
         this.id = id;
         this.precioServicio = precioServicio;
         this.descripcion = descripcion;
@@ -42,6 +44,7 @@ public class Servicio implements Serializable {
         this.provincia = provincia;
         this.proyecto = proyecto;
         this.empleadosNecesarios = empleadosNecesarios;
+        this.finalizano = finalizano;
     }
 
     public Servicio() {
@@ -114,6 +117,14 @@ public class Servicio implements Serializable {
 
     public void setEmpleadosNecesarios(int empleadosNecesarios) {
         this.empleadosNecesarios = empleadosNecesarios;
+    }
+
+    public boolean isFinalizano() {
+        return finalizano;
+    }
+
+    public void setFinalizano(boolean finalizano) {
+        this.finalizano = finalizano;
     }
 
     @Override

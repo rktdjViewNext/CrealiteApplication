@@ -15,7 +15,9 @@ public class Constantes {
     public static final String FASE_PROYECTO_6 = "SEGUNDO PAGO PAGO (30%)";
     public static final String FASE_PROYECTO_7 = "FINALIZADO";
 
-    public static  final String [] TIPO_SERVICIO_VIDEO ={"BODA","COMUNIÓN","DJ","FESTIVAL","DISCOTECA","URBANA","VIDEOCLIP","DEPORTIVO"};
+    public static  final String [] TIPO_SERVICIO_VIDEO ={"BODA","COMUNIÓN","DJ","FESTIVAL","DISCOTECA","URBANA","VIDEOCLIP","DEPORTIVO","NEGOCIO","EVENTO"};
+    public static  final String [] TIPO_SERVICIO_FOTOGRAFIA ={"BODA","COMUNIÓN","DJ","FESTIVAL","DISCOTECA","URBANA","ESTUDIO","DEPORTIVA","NEGOCIO","EVENTO","PRODUCTO","VEHICULOS"};
+    public static  final String [] TIPO_SERVICIO_DISENO ={"PORTADA","FLYER","BANNER","CARTEL PUBLICITARIO","LOGO","VISUAL DJ","VISUAL FESTIVA","CARTELERA","PUBLICACIÓN INSTAGRAM","HISTORIA INSTAGRAM"};
 
 
     public static final String ONLY_READ = "ONLY_READ";

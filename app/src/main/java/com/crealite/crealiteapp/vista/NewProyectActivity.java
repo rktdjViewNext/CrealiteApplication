@@ -148,6 +148,7 @@ public class NewProyectActivity extends AppCompatActivity {
                                 nuevoProyecto.setNombre(etNombreProyecto.getText().toString());
                                 intent.putExtra(Constantes.EXTRA_LISTA_SERVICIO,servicios);
                                 intent.putExtra(Constantes.EXTRA_PRYECTO,crudProyecto.searchByName(nuevoProyecto));
+                                intent.putExtra("VERDADERO",true);
                                 startActivity(intent);
                             }
                         });

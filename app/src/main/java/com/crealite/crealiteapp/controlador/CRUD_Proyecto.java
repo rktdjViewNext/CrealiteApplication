@@ -121,6 +121,7 @@ public class CRUD_Proyecto {
                         in.close();
 
                         String responseString = response.toString();
+                        System.out.println(responseString);
                         Log.d("CRUD_Proyectos", "Server response: " + responseString);
                         JSONObject jsonResponse = new JSONObject(responseString);
                         if (jsonResponse.getString("status").equals("success")) {
