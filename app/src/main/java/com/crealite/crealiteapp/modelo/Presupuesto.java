@@ -1,6 +1,8 @@
 package com.crealite.crealiteapp.modelo;
 
-public class Presupuesto {
+import java.io.Serializable;
+
+public class Presupuesto implements Serializable {
 
     private int id;
     private double subtotal;

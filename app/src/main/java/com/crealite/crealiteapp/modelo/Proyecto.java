@@ -11,6 +11,7 @@ public class Proyecto implements Serializable {
     private Presupuesto presupuesto;
     private Cliente cliente;
     private Boolean finalizado;
+    private int presupuestoID;
 
 
     // Constructor
@@ -97,5 +98,13 @@ public class Proyecto implements Serializable {
                 ", presupuesto=" + presupuesto +
                 ", cliente=" + cliente +
                 '}';
+    }
+
+    public void setPresupuestoID(int presupuestoID) {
+        this.presupuestoID = presupuestoID;
+    }
+
+    public int getPresupuestoID() {
+        return presupuestoID;
     }
 }

@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.crealite.crealiteapp.modelo.Cliente;
+import com.crealite.crealiteapp.modelo.Presupuesto;
 import com.crealite.crealiteapp.modelo.Proyecto;
 
 import org.json.JSONArray;
@@ -22,12 +23,12 @@ import java.util.List;
 
 public class CRUD_Proyecto {
 
-    ArrayList<Proyecto> proyectos;
-    CRUD_Clientes crud_clientes;
+    private ArrayList<Proyecto> proyectos;
+    private CRUD_Clientes crud_clientes;
+
 
     public CRUD_Proyecto() {
         proyectos = new ArrayList<>();
-
         this.crud_clientes = new CRUD_Clientes();
         obtenerTodosProyectos(new ResponseCallback() {
             @Override
@@ -98,6 +99,7 @@ public class CRUD_Proyecto {
         }
     }
 
+
     @SuppressLint("StaticFieldLeak")
     public void obtenerTodosProyectos(final ResponseCallback callback) {
         new AsyncTask<Void, Void, Boolean>() {
@@ -121,8 +123,7 @@ public class CRUD_Proyecto {
                         in.close();
 
                         String responseString = response.toString();
-                        System.out.println(responseString);
-                        Log.d("CRUD_Proyectos", "Server response: " + responseString);
+                        Log.d("CRUD_Proyecto", "Server response: " + responseString);
                         JSONObject jsonResponse = new JSONObject(responseString);
                         if (jsonResponse.getString("status").equals("success")) {
                             JSONArray data = jsonResponse.getJSONArray("data");
@@ -132,34 +133,42 @@ public class CRUD_Proyecto {
                                 int id = proyectoJson.getInt("id");
                                 String nombre = proyectoJson.getString("nombre");
 
-                                int pagadoInt = proyectoJson.getInt("pagado");
-                                boolean pagado = false;
-                                if (pagadoInt == 1) pagado = true;
-
-
-                                //int presupuestoId = proyectoJson.getInt("presupuesto_id");
+                                boolean pagado = proyectoJson.getInt("pagado") == 1;
                                 int clienteId = proyectoJson.getInt("cliente_id");
+                                boolean finalizado = proyectoJson.getInt("finalizado") == 1;
 
-                                int finalizadoInt = proyectoJson.getInt("finalizado");
-                                boolean finalizado = false;
-                                if (finalizadoInt == 1) pagado = true;
+                                JSONObject presupuestoJson = proyectoJson.getJSONObject("presupuesto");
+                                Presupuesto presupuesto = null;
+                                try{
+                                   presupuesto = new Presupuesto(
 
-                                Proyecto proyecto = new Proyecto(id, nombre, pagado, null, crud_clientes.searchById(clienteId),finalizado);
+                                            presupuestoJson.getInt("id"),
+                                            presupuestoJson.getDouble("subtotal"),
+                                            presupuestoJson.getDouble("iva"),
+                                            presupuestoJson.getDouble("total"),
+                                            presupuestoJson.getInt("pagado") == 1
+                                    );
+                                }catch (Exception e){
+
+                                }
+
+
+                                Proyecto proyecto = new Proyecto(id, nombre, pagado, presupuesto, crud_clientes.searchById(clienteId), finalizado);
                                 proyectos.add(proyecto);
                             }
-                            Log.d("CRUD_Proyectos", "Proyectos obtenidos correctamente");
+                            Log.d("CRUD_Proyecto", "Proyectos con presupuestos obtenidos correctamente");
                             return true;
                         } else {
                             String errorMessage = jsonResponse.getString("message");
-                            Log.e("CRUD_Proyectos", "Error al obtener proyectos: " + errorMessage);
+                            Log.e("CRUD_Proyecto", "Error al obtener proyectos: " + errorMessage);
                             return false;
                         }
                     } else {
-                        Log.e("CRUD_Proyectos", "Server returned non-OK status: listar" + responseCode);
+                        Log.e("CRUD_Proyecto", "Server returned non-OK status: " + responseCode);
                         return false;
                     }
                 } catch (Exception e) {
-                    Log.e("CRUD_Proyectos", "Error al obtener proyectos", e);
+                    Log.e("CRUD_Proyecto", "Error al obtener proyectos", e);
                     return false;
                 } finally {
                     if (conn != null) {
@@ -177,6 +186,69 @@ public class CRUD_Proyecto {
         }.execute();
     }
 
+    @SuppressLint("StaticFieldLeak")
+    public void actualizarProyectoPagado(int proyectoId, final ResponseCallback callback) {
+        new AsyncTask<Void, Void, Boolean>() {
+            @Override
+            protected Boolean doInBackground(Void... voids) {
+                try {
+                    URL url = new URL(Constantes.SERVER_URL + "/modificarProyectoPagado.php");
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setRequestMethod("POST");
+                    conn.setRequestProperty("Content-Type", "application/json; utf-8");
+                    conn.setRequestProperty("Accept", "application/json");
+                    conn.setDoOutput(true);
+
+                    JSONObject jsonParam = new JSONObject();
+                    jsonParam.put("proyecto_id", proyectoId);
+
+                    PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(conn.getOutputStream(), "UTF-8")));
+                    out.print(jsonParam.toString());
+                    out.flush();
+                    out.close();
+
+                    int responseCode = conn.getResponseCode();
+                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                        BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                        StringBuilder response = new StringBuilder();
+                        String inputLine;
+                        while ((inputLine = in.readLine()) != null) {
+                            response.append(inputLine);
+                        }
+                        in.close();
+
+                        String responseString = response.toString();
+                        Log.d("CRUD_Proyecto", "Server response: " + responseString);
+                        JSONObject jsonResponse = new JSONObject(responseString);
+                        if (jsonResponse.getString("status").equals("success")) {
+                            Proyecto proyecto = searchById(proyectoId);
+                            if (proyecto != null) {
+                                proyecto.setPagado(true);
+                            }
+                            return true;
+                        } else {
+                            String errorMessage = jsonResponse.getString("message");
+                            Log.e("CRUD_Proyecto", "Error al actualizar proyecto: " + errorMessage);
+                            return false;
+                        }
+                    } else {
+                        Log.e("CRUD_Proyecto", "Server returned non-OK status: " + responseCode);
+                        return false;
+                    }
+                } catch (Exception e) {
+                    Log.e("CRUD_Proyecto", "Error al actualizar proyecto", e);
+                    return false;
+                }
+            }
+
+            @Override
+            protected void onPostExecute(Boolean success) {
+                if (callback != null) {
+                    callback.onComplete(success, proyectos);
+                }
+            }
+        }.execute();
+    }
 
     public Proyecto search(int proyectoId) {
         for (Proyecto p:proyectos

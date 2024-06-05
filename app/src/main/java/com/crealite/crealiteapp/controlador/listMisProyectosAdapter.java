@@ -38,8 +38,6 @@ public class listMisProyectosAdapter extends ArrayAdapter<Proyecto> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
         Proyecto p = getItem(position);
-        if (p.getNombre().equalsIgnoreCase("Ayuso -Feria Medellin")) p.setFinalizado(true);
-        if (p.getNombre().equalsIgnoreCase("Juanma Garcia - Palapa")) p.setPagado(true);
 
 
         if (convertView == null){

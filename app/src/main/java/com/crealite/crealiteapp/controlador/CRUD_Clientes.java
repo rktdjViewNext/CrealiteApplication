@@ -20,11 +20,15 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -287,18 +291,92 @@ public class CRUD_Clientes {
     }
 
     @SuppressLint("StaticFieldLeak")
-    public boolean updateFotoPerfil(int clienteId, Bitmap foto, final ResponseCallback callback) {
+    public boolean updateFotoPerfil2(int clienteId, File imageFile, final ResponseCallback callback) {
+
+
         try {
-            JSONObject jsonParam = new JSONObject();
-            jsonParam.put("id", clienteId);
-            jsonParam.put("foto", bitmapToBase64(foto)); // Convierte la imagen Bitmap a base64
+            //JSONObject jsonParam = new JSONObject();
+            //jsonParam.put("id", clienteId);
+            //jsonParam.put("foto", Base64.encodeToString(foto,Base64.DEFAULT));
 
             new AsyncTask<Void, Void, Boolean>() {
                 @Override
                 protected Boolean doInBackground(Void... voids) {
+
                     HttpURLConnection conn = null;
                     try {
-                        URL url = new URL(Constantes.SERVER_URL + "/subirFotoCliente.php");
+                        byte[] imageData = new byte[(int) imageFile.length()];
+                        FileInputStream fis = new FileInputStream(imageFile);
+                        fis.read(imageData);
+                        fis.close();
+
+
+                        conn = null;
+                        URL url = new URL(Constantes.SERVER_URL + "/subirFotoCliente2.php");
+                        conn.setDoOutput(true);
+                        conn.setRequestMethod("POST");
+                        conn.setRequestProperty("Content-Type", "application/octet-stream");
+                        conn.setRequestProperty("userId", String.valueOf(String.valueOf(clienteId)));
+
+                        OutputStream os = conn.getOutputStream();
+                        os.write(imageData);
+                        os.flush();
+                        os.close();
+
+                        int responseCode = conn.getResponseCode();
+                        System.out.println("Response Code: " + responseCode);
+
+                        BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                        String inputLine;
+                        StringBuffer response = new StringBuffer();
+                        while ((inputLine = in.readLine()) != null) {
+                            response.append(inputLine);
+                        }
+                        in.close();
+
+                        System.out.println("Response: " + response.toString());
+                    } catch (Exception e) {
+                        Log.e(Constantes.TAG, "Error sending request", e);
+                        return false;
+                    } finally {
+                        if (conn != null) {
+                            conn.disconnect();
+                        }
+                    }
+                    return true;
+                }
+
+                @Override
+                protected void onPostExecute(Boolean result) {
+                    if (callback != null) {
+                        callback.onComplete(result, clientesList);
+                    }
+                }
+            }.execute();
+
+            return true;
+        } catch (Exception e) {
+            Log.e("CRUD_CLIENTES", "Error updating profile photo", e);
+            return false;
+        }
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    public boolean updateFotoPerfil(int clienteId, byte[] foto, final ResponseCallback callback) {
+
+
+        try {
+            JSONObject jsonParam = new JSONObject();
+            jsonParam.put("id", clienteId);
+            jsonParam.put("foto", Base64.encodeToString(foto,Base64.DEFAULT));
+
+            new AsyncTask<Void, Void, Boolean>() {
+                @Override
+                protected Boolean doInBackground(Void... voids) {
+
+                    HttpURLConnection conn = null;
+                    try {
+                        URL url = new URL(Constantes.SERVER_URL + "/subirFotoCliente2.php");
                         conn = (HttpURLConnection) url.openConnection();
                         conn.setRequestMethod("POST");
                         conn.setRequestProperty("Content-Type", "application/json; utf-8");
@@ -350,18 +428,6 @@ public class CRUD_Clientes {
     }
 
     // Método auxiliar para convertir Bitmap a Base64
-    private String bitmapToBase64(Bitmap bitmap) {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-        byte[] byteArray = byteArrayOutputStream.toByteArray();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
-            return Base64.encodeToString(byteArray, Base64.DEFAULT);
-        }else {
-            return null;
-        }
-    }
-
-
 
     public interface ResponseCallback {
         void onComplete(boolean success, List<Cliente> clientes);

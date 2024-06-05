@@ -39,11 +39,11 @@ public class listEstadoProyecto extends ArrayAdapter<EstadoProyecto> {
 
         estadotxt.setText(estado.getNombre());
 
-        if (estado.getEstado().equals("TERMINADO")){
+        if (estado.getEstado().equals(Constantes.ESTADO_PROYECTO_TERMINADO)){
             check.setImageResource(R.drawable.baseline_check_circle_green_24);
-        }else if(estado.getEstado().equals("EN PROCESO")){
+        }else if(estado.getEstado().equals(Constantes.ESTADO_PROYECTO_ENPROCESO)){
             check.setImageResource(R.drawable.baseline_alarm_24);
-        }else if(estado.getEstado().equals("CANCELADO")) {
+        }else if(estado.getEstado().equals(Constantes.ESTADO_PROYECTO_CANCELADO)) {
             check.setImageResource(R.drawable.baseline_cancel_red_24);
         }else{
             check.setImageResource(R.drawable.baseline_minimize_24);

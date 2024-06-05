@@ -19,6 +19,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import com.crealite.crealiteapp.R;
 import com.crealite.crealiteapp.controlador.CRUD_EstadoProyecto;
+import com.crealite.crealiteapp.controlador.CRUD_Proyecto;
 import com.crealite.crealiteapp.controlador.CRUD_Servicios;
 import com.crealite.crealiteapp.controlador.Constantes;
 import com.crealite.crealiteapp.modelo.Proyecto;
@@ -32,6 +33,7 @@ import com.google.android.material.tabs.TabLayout;
 import java.net.ServerSocket;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class ProyectViewActivity extends AppCompatActivity {
@@ -44,6 +46,7 @@ public class ProyectViewActivity extends AppCompatActivity {
     private Proyecto proyecto;
     private CRUD_Servicios crudServicios;
     private CRUD_EstadoProyecto crudEstadoProyecto;
+    private CRUD_Proyecto crudProyecto;
     private ImageButton btnBack;
     private Button btnPagar;
     boolean bandera;
@@ -70,9 +73,12 @@ public class ProyectViewActivity extends AppCompatActivity {
 
         crudServicios.obtenerTodosServicios((success, servicios) -> {
             fragmento1.setServicios(crudServicios.listarServiciosProyecto(proyecto));
+            System.out.println("y aqui si esta?? :" + proyecto);
+            configurarBotonPagar(proyecto);
             crudEstadoProyecto.obtenerEstadosProyecto(estadosProyectos -> {
                 fragmento2.setProcesosProyectos(crudEstadoProyecto.searchEstadoProyecto(proyecto));
                 asignarFragmentosATabLayout();
+
             });
         });
 
@@ -96,13 +102,14 @@ public class ProyectViewActivity extends AppCompatActivity {
 
     }
 
-    private void configurarBotonPagar() {
+    private void configurarBotonPagar(Proyecto proyecto) {
         //CONFIGURAR CRUD PRESUPUESTO
         System.out.println("ESTE ES EL PROYECTO" + proyecto.getPresupuesto());
 
 
         if (proyecto != null && proyecto.getPresupuesto() != null && !proyecto.isPagado()){
             btnPagar.setEnabled(true);
+            btnPagar.setTextColor(this.getResources().getColor(R.color.white));
             btnPagar.setBackground(ResourcesCompat.getDrawable(getResources(),R.drawable.orange2_button_bg,null));
 
             btnPagar.setOnClickListener(new View.OnClickListener() {
@@ -110,12 +117,21 @@ public class ProyectViewActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     btnPagar.setText("SEGUNDO PAGO");
                     proyecto.setPagado(true);
+                    btnPagar.setBackground(ResourcesCompat.getDrawable(getResources(),R.drawable.edittext_bg,null));
+                    crudProyecto.actualizarProyectoPagado(proyecto.getId(), new CRUD_Proyecto.ResponseCallback() {
+                        @Override
+                        public void onComplete(boolean success, List<Proyecto> proyectos) {
+
+                        }
+                    });
                     btnPagar.setEnabled(false);
                     Toast.makeText(ProyectViewActivity.this, "PRIMER PAGO REALIZADO", Toast.LENGTH_SHORT).show();
                 }
             });
 
-        }else if (proyecto != null && proyecto.getPresupuesto() != null && proyecto.isPagado()){
+        }
+        if (proyecto != null && proyecto.getPresupuesto() != null && proyecto.isPagado()){
+            btnPagar.setText("SEGUNDO PAGO");
             btnPagar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -155,6 +171,7 @@ public class ProyectViewActivity extends AppCompatActivity {
         crudServicios = new CRUD_Servicios();
         fragmento2 = new Fragmento2();
         crudEstadoProyecto = new CRUD_EstadoProyecto();
+        crudProyecto = new CRUD_Proyecto();
         btnBack = findViewById(R.id.btnBack);
         btnPagar= findViewById(R.id.btnPagar);
         bandera = false;

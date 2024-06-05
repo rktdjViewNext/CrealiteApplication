@@ -48,6 +48,7 @@ import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.net.Me
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.io.IOUtils;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDate;
@@ -188,25 +189,20 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && data != null) {
             Uri pickedImage = data.getData();
-            if (pickedImage != null) {
-                Bitmap bitmap = null;
-                ContentResolver contentResolver = getContentResolver();
-                try {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                        // Use ImageDecoder for Android P and above
-                        ImageDecoder.Source source = ImageDecoder.createSource(contentResolver, pickedImage);
-                        bitmap = ImageDecoder.decodeBitmap(source);
-                    } else {
-                        // Use MediaStore.Images.Media.getBitmap for below Android P
-                        bitmap = MediaStore.Images.Media.getBitmap(contentResolver, pickedImage);
-                        System.out.println(bitmap);
-                    }
+            Bitmap bitmap = null;
+            File imageFile = new File(String.valueOf(pickedImage));
 
-                    // Set the bitmap to the ImageView
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),pickedImage);
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
+                byte[]imageByte = byteArrayOutputStream.toByteArray();
+
+                // Set the bitmap to the ImageView
                     fotoPerfil.setImageBitmap(bitmap);
 
                     // Do something with the bitmap
-                    crud_clientes.updateFotoPerfil(cliente.getId(), bitmap, new CRUD_Clientes.ResponseCallback() {
+                    crud_clientes.updateFotoPerfil2(cliente.getId(), imageFile, new CRUD_Clientes.ResponseCallback() {
                         @Override
                         public void onComplete(boolean success, List<Cliente> clientes) {
                             if (success) {
@@ -224,10 +220,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             } else {
                 Toast.makeText(this, "No se seleccionó ninguna imagen", Toast.LENGTH_SHORT).show();
             }
-        } else {
-            Toast.makeText(this, "No se seleccionó ninguna imagen", Toast.LENGTH_SHORT).show();
         }
-    }
 
 
 
