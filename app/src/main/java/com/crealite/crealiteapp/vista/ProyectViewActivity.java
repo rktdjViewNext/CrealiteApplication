@@ -22,6 +22,7 @@ import com.crealite.crealiteapp.controlador.CRUD_EstadoProyecto;
 import com.crealite.crealiteapp.controlador.CRUD_Proyecto;
 import com.crealite.crealiteapp.controlador.CRUD_Servicios;
 import com.crealite.crealiteapp.controlador.Constantes;
+import com.crealite.crealiteapp.modelo.EstadoProyecto;
 import com.crealite.crealiteapp.modelo.Proyecto;
 import com.crealite.crealiteapp.modelo.Servicio;
 import com.crealite.crealiteapp.vista.Fragmentos.Fragmento1;
@@ -73,7 +74,6 @@ public class ProyectViewActivity extends AppCompatActivity {
 
         crudServicios.obtenerTodosServicios((success, servicios) -> {
             fragmento1.setServicios(crudServicios.listarServiciosProyecto(proyecto));
-            System.out.println("y aqui si esta?? :" + proyecto);
             configurarBotonPagar(proyecto);
             crudEstadoProyecto.obtenerEstadosProyecto(estadosProyectos -> {
                 fragmento2.setProcesosProyectos(crudEstadoProyecto.searchEstadoProyecto(proyecto));
@@ -115,32 +115,30 @@ public class ProyectViewActivity extends AppCompatActivity {
             btnPagar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    btnPagar.setText("SEGUNDO PAGO");
+                    btnPagar.setText("PAGADO");
                     proyecto.setPagado(true);
                     btnPagar.setBackground(ResourcesCompat.getDrawable(getResources(),R.drawable.edittext_bg,null));
                     crudProyecto.actualizarProyectoPagado(proyecto.getId(), new CRUD_Proyecto.ResponseCallback() {
                         @Override
                         public void onComplete(boolean success, List<Proyecto> proyectos) {
+                            crudEstadoProyecto.cambiarEstadoPagado(proyecto, new CRUD_EstadoProyecto.ResponseCallback() {
+                                @Override
+                                public void onComplete(List<EstadoProyecto> estadosProyectos) {
 
+                                }
+                            });
                         }
                     });
                     btnPagar.setEnabled(false);
-                    Toast.makeText(ProyectViewActivity.this, "PRIMER PAGO REALIZADO", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProyectViewActivity.this, "PAGO REALIZADO", Toast.LENGTH_SHORT).show();
                 }
             });
 
         }
         if (proyecto != null && proyecto.getPresupuesto() != null && proyecto.isPagado()){
-            btnPagar.setText("SEGUNDO PAGO");
-            btnPagar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    btnPagar.setText("PAGADO");
-                    proyecto.setPagado(true);
-                    btnPagar.setEnabled(false);
-                    Toast.makeText(ProyectViewActivity.this, "PAGO COMPLETADO", Toast.LENGTH_SHORT).show();
-                }
-            });
+            btnPagar.setText("PAGADO");
+            btnPagar.setEnabled(false);
+            btnPagar.setBackground(ResourcesCompat.getDrawable(getResources(),R.drawable.edittext_bg,null));
         }
 
 

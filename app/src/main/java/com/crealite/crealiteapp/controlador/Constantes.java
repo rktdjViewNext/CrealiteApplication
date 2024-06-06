@@ -1,7 +1,7 @@
 package com.crealite.crealiteapp.controlador;
 
 public class Constantes {
-    public static final String SERVER_URL = "http://172.16.178.103/Crealite";
+    public static final String SERVER_URL = "http://172.16.178.206/Crealite";
     public static final String TAG = "DatabaseConnection";
     public static final String EXTRA_CLIENTE = "CLIENTE";
     public static final String EXTRA_PRYECTO = "PROYECTO";

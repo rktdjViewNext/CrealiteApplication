@@ -12,8 +12,10 @@ import org.json.JSONObject;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -29,10 +31,7 @@ public class CRUD_EstadoProyecto  {
         estados = new ArrayList<>();
         estados.add(new EstadoProyecto("ADJUDICACION DE PROFESIONALES", "EN PROCESO",proyecto));
         estados.add(new EstadoProyecto("GENERANDO PRESUPUESTO", "SIN INICIAR",proyecto));
-        estados.add(new EstadoProyecto("PRIMER PAGO (70%)", "SIN INICIAR",proyecto));
-        estados.add(new EstadoProyecto("EVENTO REALIZADO", "SIN INICIAR",proyecto));
-        estados.add(new EstadoProyecto("SERVICIO LISTO PARA ENTREGA", "SIN INICAR",proyecto));
-        estados.add(new EstadoProyecto("SEGUNDO PAGO PAGO (30%)", "SIN INICIAR",proyecto));
+        estados.add(new EstadoProyecto("PAGO DEL PROYECTO", "SIN INICIAR",proyecto));
         estados.add(new EstadoProyecto("FINALIZADO", "SIN INICIAR",proyecto));
     }
 
@@ -150,6 +149,66 @@ public class CRUD_EstadoProyecto  {
 
             @Override
             protected void onPostExecute(Boolean result) {
+                if (callback != null) {
+                    callback.onComplete(estados);
+                }
+            }
+        }.execute();
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    public void cambiarEstadoPagado(Proyecto proyecto, ResponseCallback callback) {
+        new AsyncTask<Void, Void, Boolean>() {
+            @Override
+            protected Boolean doInBackground(Void... voids) {
+                try {
+                    URL url = new URL(Constantes.SERVER_URL + "/modificarEstadoProyectoPagado.php");
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setRequestMethod("POST");
+                    conn.setRequestProperty("Content-Type", "application/json; utf-8");
+                    conn.setRequestProperty("Accept", "application/json");
+                    conn.setDoOutput(true);
+
+                    JSONObject jsonParam = new JSONObject();
+                    jsonParam.put("proyecto_id", proyecto.getId());
+
+                    PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(conn.getOutputStream(), "UTF-8")));
+                    out.print(jsonParam.toString());
+                    out.flush();
+                    out.close();
+
+                    int responseCode = conn.getResponseCode();
+                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                        BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                        StringBuilder response = new StringBuilder();
+                        String inputLine;
+                        while ((inputLine = in.readLine()) != null) {
+                            response.append(inputLine);
+                        }
+                        in.close();
+
+                        String responseString = response.toString();
+                        Log.d(Constantes.TAG, "Server response: " + responseString);
+                        JSONObject jsonResponse = new JSONObject(responseString);
+                        if (jsonResponse.getString("status").equals("success")) {
+                            return true;
+                        } else {
+                            String errorMessage = jsonResponse.getString("message");
+                            Log.e(Constantes.TAG, "Error al actualizar el estado del proyecto: " + errorMessage);
+                            return false;
+                        }
+                    } else {
+                        Log.e(Constantes.TAG, "Server returned non-OK status: " + responseCode);
+                        return false;
+                    }
+                } catch (Exception e) {
+                    Log.e("CRUD_Proyecto", "Error al actualizar proyecto", e);
+                    return false;
+                }
+            }
+
+            @Override
+            protected void onPostExecute(Boolean success) {
                 if (callback != null) {
                     callback.onComplete(estados);
                 }
