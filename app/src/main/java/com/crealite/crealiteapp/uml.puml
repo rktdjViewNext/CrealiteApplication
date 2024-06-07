@@ -1,0 +1,399 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+package com.crealite.crealiteapp.controlador {
+
+    class CRUD_Clientes {
+        -List<Cliente> clientesList
+
+        +CRUD_Clientes()
+        +void obtenerTodosClientes(ResponseCallback callback)
+        +boolean add(Cliente element, ResponseCallback callback)
+        +boolean update(Cliente element, ResponseCallback callback)
+        +boolean updateFotoPerfil2(int clienteId, File imageFile, ResponseCallback callback)
+        +boolean updateFotoPerfil(int clienteId, byte[] foto, ResponseCallback callback)
+        +List<Cliente> getClientesList()
+        +Cliente search(Cliente element)
+        +Cliente searchById(int id)
+        +boolean delete(Cliente element)
+        +List<Cliente> listAll()
+        +void listarClientes()
+    }
+
+    interface ResponseCallback {
+        +void onComplete(boolean success, List<Cliente> clientes)
+    }
+
+    CRUD_Clientes --> Cliente
+    CRUD_Clientes ..> Constantes : use
+    CRUD_Clientes ..> ResponseCallback : implements
+
+    package com.crealite.crealiteapp.modelo {
+        class Cliente  extends Usuario {
+            -int id
+            -String usuario
+            -String contrasena
+            -String nombre
+            -String apellidos
+            -String telefono
+            -String correo
+            -LocalDate fechaNacimiento
+            -boolean admin
+            -byte[] foto
+            -String profesion
+            -String ciudad
+
+            +Cliente(int id, String usuario, String contrasena, String nombre, String apellidos, String telefono, String correo, LocalDate fechaNacimiento, boolean admin, byte[] foto, String profesion, String ciudad)
+            +int getId()
+            +String getUsuario()
+            +String getContrasena()
+            +String getNombre()
+            +String getApellidos()
+            +String getTelefono()
+            +String getCorreo()
+            +LocalDate getFechaNacimiento()
+            +boolean isAdmin()
+            +byte[] getFoto()
+            +String getProfesion()
+            +String getCiudad()
+        }
+    }
+
+    package com.crealite.crealiteapp.util {
+        class Constantes {
+            +static final String SERVER_URL
+            +static final String TAG
+            +static final String EXTRA_CLIENTE
+            +static final String EXTRA_PRYECTO
+            +static final String EXTRA_SERVICIO
+            +static final String EXTRA_LISTA_SERVICIO
+            +static final String FASE_PROYECTO_1
+            +static final String FASE_PROYECTO_2
+            +static final String FASE_PROYECTO_3
+            +static final String FASE_PROYECTO_4
+            +static final String FASE_PROYECTO_5
+            +static final String FASE_PROYECTO_6
+            +static final String FASE_PROYECTO_7
+            +static final String ESTADO_PROYECTO_TERMINADO
+            +static final String ESTADO_PROYECTO_ENPROCESO
+            +static final String ESTADO_PROYECTO_CANCELADO
+            +static final String ESTADO_PROYECTO_SININICIAR
+            +static final String[] TIPO_SERVICIO_VIDEO
+            +static final String[] TIPO_SERVICIO_FOTOGRAFIA
+            +static final String[] TIPO_SERVICIO_DISENO
+            +static final String ONLY_READ
+        }
+    }
+}
+package com.crealite.crealiteapp.controlador {
+
+    class CRUD_EstadoProyecto {
+        -ArrayList<EstadoProyecto> estados
+        -CRUD_Proyecto crudProyecto
+
+        +CRUD_EstadoProyecto(proyecto: Proyecto)
+        +CRUD_EstadoProyecto()
+        +void obtenerEstadosProyecto(callback: ResponseCallback)
+        +void insertarEstadoProyecto(estadoProyecto: EstadoProyecto, callback: ResponseCallback)
+        +void cambiarEstadoPagado(proyecto: Proyecto, callback: ResponseCallback)
+        +ArrayList<EstadoProyecto> getEstados()
+        +ArrayList<EstadoProyecto> searchEstadoProyecto(p: Proyecto)
+    }
+
+    interface ResponseCallback {
+        +void onComplete(estadosProyectos: List<EstadoProyecto>)
+    }
+
+    CRUD_EstadoProyecto --> EstadoProyecto
+    CRUD_EstadoProyecto --> Proyecto
+    CRUD_EstadoProyecto --> CRUD_Proyecto
+    CRUD_EstadoProyecto ..> Constantes : use
+    CRUD_EstadoProyecto ..> ResponseCallback : uses
+}
+
+package com.crealite.crealiteapp.modelo {
+    class EstadoProyecto {
+        -int id
+        -String nombre
+        -String estado
+        -Proyecto proyecto
+
+        +EstadoProyecto(nombre: String, estado: String, proyecto: Proyecto)
+        +int getId()
+        +void setId(id: int)
+        +String getNombre()
+        +void setNombre(nombre: String)
+        +String getEstado()
+        +void setEstado(estado: String)
+        +Proyecto getProyecto()
+        +void setProyecto(proyecto: Proyecto)
+    }
+
+
+}
+
+package com.crealite.crealiteapp.controlador {
+    class CRUD_Proyecto {
+        +Proyecto search(id: int): Proyecto
+    }
+}
+
+
+
+package com.crealite.crealiteapp.controlador {
+
+    class CRUD_Proyecto {
+        - ArrayList<Proyecto> proyectos
+        - CRUD_Clientes crud_clientes
+
+        + CRUD_Proyecto()
+        + void insertarProyecto(JSONObject jsonParam, ResponseCallback callback)
+        + boolean addProyecto(Proyecto proyecto, ResponseCallback callback)
+        + void obtenerTodosProyectos(ResponseCallback callback)
+        + void actualizarProyectoPagado(int proyectoId, ResponseCallback callback)
+        + Proyecto search(int proyectoId)
+        + Proyecto searchByName(Proyecto proyecto)
+        + ArrayList<Proyecto> obtenerProyectosPagadosCliente(Cliente cliente)
+        + ArrayList<Proyecto> obtenerProyectosFinalizadosCliente(Cliente cliente)
+        + Proyecto searchById(int id)
+        + void listarProyectos()
+        + ArrayList<Proyecto> searchByCliente(Cliente c)
+        + ArrayList<Proyecto> ultimosCinco(Cliente c)
+    }
+
+    interface ResponseCallback {
+        + void onComplete(boolean success, List<Proyecto> proyectos)
+    }
+
+    CRUD_Proyecto --> Proyecto
+    CRUD_Proyecto --> Cliente
+    CRUD_Proyecto ..> Constantes : use
+    CRUD_Proyecto ..> ResponseCallback : implements
+
+    package com.crealite.crealiteapp.modelo {
+        class Proyecto {
+            - int id
+            - String nombre
+            - boolean pagado
+            - Presupuesto presupuesto
+            - Cliente cliente
+            - boolean finalizado
+
+            + Proyecto(int id, String nombre, boolean pagado, Presupuesto presupuesto, Cliente cliente, boolean finalizado)
+            + int getId()
+            + String getNombre()
+            + boolean isPagado()
+            + Presupuesto getPresupuesto()
+            + Cliente getCliente()
+            + boolean getFinalizado()
+            + void setPagado(boolean pagado)
+            + void setFinalizado(boolean finalizado)
+        }
+
+
+
+    }
+
+
+package com.crealite.crealiteapp.controlador {
+
+    class CRUD_Servicios {
+        -ArrayList<Servicio> servicios
+        -CRUD_Proyecto crudProyecto
+        -ArrayList<Fotografia> fotografias
+        -ArrayList<Video> videos
+
+        +CRUD_Servicios()
+        +void obtenerDisenosAll(ResponseCallback callback)
+        +void obtenerFotografiasAll(ResponseCallback callback)
+        +void obtenerVideosAll(ResponseCallback callback)
+        +void obtenerTodosServicios(ResponseCallback callback)
+        +ArrayList<Servicio> listarServiciosProyecto(Proyecto proyecto)
+        +void insertarService(JSONObject jsonParam, ResponseCallback callback, String php)
+        +boolean addVideo(Video video, ResponseCallback callback)
+        +boolean addDiseno(Diseno diseno, ResponseCallback callback)
+        +boolean addFotografia(Fotografia fotografia, ResponseCallback callback)
+        +int numServiosProyecto(Proyecto p)
+    }
+
+    interface ResponseCallback {
+        +void onComplete(boolean success, List<Servicio> servicios)
+    }
+
+    CRUD_Servicios --> Servicio
+    CRUD_Servicios --> Fotografia
+    CRUD_Servicios --> Video
+    CRUD_Servicios --> Diseno
+    CRUD_Servicios --> CRUD_Proyecto
+    CRUD_Servicios ..> Constantes : use
+    CRUD_Servicios ..> ResponseCallback : implements
+
+}
+
+package com.crealite.crealiteapp.modelo {
+    class Servicio {
+        -int id
+        -float precioServicio
+        -String descripcion
+        -LocalDate fechaRealizar
+        -int duracion
+        -String localidad
+        -String provincia
+        -int empleadosNecesarios
+        -Proyecto proyecto
+
+        +int getId()
+        +void setId(int id)
+        +float getPrecioServicio()
+        +void setPrecioServicio(float precio)
+        +String getDescripcion()
+        +void setDescripcion(String descripcion)
+        +LocalDate getFechaRealizar()
+        +void setFechaRealizar(LocalDate fecha)
+        +int getDuracion()
+        +void setDuracion(int duracion)
+        +String getLocalidad()
+        +void setLocalidad(String localidad)
+        +String getProvincia()
+        +void setProvincia(String provincia)
+        +int getEmpleadosNecesarios()
+        +void setEmpleadosNecesarios(int empleados)
+        +Proyecto getProyecto()
+        +void setProyecto(Proyecto proyecto)
+    }
+
+    class Fotografia extends Servicio {
+        -int cantidadFotos
+        -String tipoServicioFotografia
+        -boolean finalizado
+
+        +int getCantidadFotos()
+        +void setCantidadFotos(int cantidadFotos)
+        +String getTipo()
+        +void setTipo(String tipo)
+        +boolean isFinalizado()
+        +void setFinalizano(boolean finalizado)
+    }
+
+    class Video extends Servicio {
+        -float duracionVideo
+        -boolean makingOff
+        -String tipoServicioVideos
+
+        +float getDuracionVideo()
+        +void setDuracionVideo(float duracionVideo)
+        +boolean isMakingOff()
+        +void setMakingOff(boolean makingOff)
+        +String getTipo()
+        +void setTipo(String tipo)
+    }
+
+    class Diseno extends Servicio {
+        -String dimensiones
+        -boolean animado
+        -String tipoServicioDiseno
+
+        +String getDimensiones()
+        +void setDimensiones(String dimensiones)
+        +boolean isAnimado()
+        +void setAnimado(boolean animado)
+        +String getTipo()
+        +void setTipo(String tipo)
+    }
+
+
+
+    class Presupuesto {
+        -int id
+        -double subtotal
+        -double iva
+        -double total
+        -boolean pagado
+
+        +Presupuesto(int id, double subtotal, double iva, double total, boolean pagado)
+        +int getId()
+        +double getSubtotal()
+        +double getIva()
+        +double getTotal()
+        +boolean isPagado()
+    }
+
+
+ class Empleado {
+        - String dni
+        - double precioHora
+        - List<Especialidad> especialidades
+        - List<Servicio> servicios
+
+        + Empleado(usuario: String, contraseña: String, nombre: String, apellidos: String, telefono: String, correo: String, fechaNacimiento: LocalDate, admin: boolean, dni: String, precioHora: double, especialidades: List<Especialidad>, servicios: ArrayList<Servicio>)
+        + Empleado(usuario: String, contraseña: String, nombre: String, apellidos: String, telefono: String, correo: String, fechaNacimiento: LocalDate, admin: boolean, dni: String, precioHora: double, especialidades: List<Especialidad>)
+        + Empleado(usuario: String)
+
+        + String getDni()
+        + void setDni(dni: String)
+        + double getPrecioHora()
+        + void setPrecioHora(precioHora: double)
+        + String getEspecialidades()
+        + void setEspecialidades(especialidades: List<Especialidad>)
+        + static List<Especialidad> devolverListaEspecilidades(specialidad: String)
+        + List<Servicio> getServicios()
+        + void setServicios(servicios: List<Servicio>)
+        + String toString()
+    }
+
+    class Usuario {
+        - String usuario
+        - String contraseña
+        - String nombre
+        - String apellidos
+        - String telefono
+        - String correo
+        - LocalDate fechaNacimiento
+        - boolean admin
+
+        + Usuario(usuario: String, contraseña: String, nombre: String, apellidos: String, telefono: String, correo: String, fechaNacimiento: LocalDate, admin: boolean)
+        + Usuario(usuario: String)
+
+        + String getUsuario()
+        + String getContraseña()
+        + String getNombre()
+        + String getApellidos()
+        + String getTelefono()
+        + String getCorreo()
+        + LocalDate getFechaNacimiento()
+        + boolean isAdmin()
+        + void setUsuario(usuario: String)
+        + void setContraseña(contraseña: String)
+        + void setNombre(nombre: String)
+        + void setApellidos(apellidos: String)
+        + void setTelefono(telefono: String)
+        + void setCorreo(correo: String)
+        + void setFechaNacimiento(fechaNacimiento: LocalDate)
+        + void setAdmin(admin: boolean)
+        + String toString()
+    }
+
+    class Especialidad {
+        + FOTOGRAFO
+        + FILMMAKER
+        + EDITOR
+        + DISEÑADOR
+        + ANIMADOR
+    }
+
+    class Servicio {
+        // atributos de la clase Servicio
+    }
+}
+
+Empleado --|> Usuario
+Empleado "1" *--> "0..*" Especialidad : tiene
+Empleado "1" *--> "0..*" Servicio : ofrece
+
+
+
+}
+
+@enduml
+
