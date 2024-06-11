@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import com.crealite.crealiteapp.R;
 import com.crealite.crealiteapp.controlador.CRUD_Empleado;
-import com.crealite.crealiteapp.controlador.CRUD_Servicios;
 import com.crealite.crealiteapp.modelo.Diseno;
 import com.crealite.crealiteapp.modelo.Empleado;
 import com.crealite.crealiteapp.modelo.Fotografia;
@@ -70,6 +69,7 @@ public class Fragmento3 extends Fragment {
 
         }
         if (proyecto.getPresupuesto() != null){
+            listaEmpleado = "";
             precioTotal.setText(proyecto.getPresupuesto().getTotal()+ "");
             preciosubtotal.setText(proyecto.getPresupuesto().getSubtotal()+ "");
             precioiva.setText(proyecto.getPresupuesto().getIva()+ "");
@@ -102,9 +102,6 @@ public class Fragmento3 extends Fragment {
             presupuestoServicios.setText("PRESUPUESTO NO DISPONIBLE");
             presupuestoTrabajadores.setText("PRESUPUESTO NO DISPONIBLE");
         }
-
-
-
         return view;
     }
 
