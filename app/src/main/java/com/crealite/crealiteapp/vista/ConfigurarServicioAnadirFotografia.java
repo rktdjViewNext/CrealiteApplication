@@ -111,6 +111,7 @@ public class ConfigurarServicioAnadirFotografia extends AppCompatActivity {
                     foto.setCantidadFotos(cantidadFotos);
                     servicios.add(foto);
                     Intent intent = new Intent(ConfigurarServicioAnadirFotografia.this,NewProyectActivity.class);
+                    System.out.println(nuevoProyecto);
                     intent.putExtra(Constantes.EXTRA_PRYECTO,nuevoProyecto);
                     intent.putExtra(Constantes.EXTRA_LISTA_SERVICIO,servicios);
                     startActivity(intent);

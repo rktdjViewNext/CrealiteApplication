@@ -233,9 +233,7 @@ public class CRUD_Servicios {
 
         ArrayList<Servicio> serviciosProyecto = new ArrayList<>();
 
-        System.out.println("LA LISTE EN ESTE MOMENTO TIENE: " + servicios.size());
         for (Servicio servicio : servicios) {
-            System.out.println("comparacion: " + servicio.getProyecto().getId() + " : " + proyecto.getId());
             if (servicio.getProyecto().getId() == proyecto.getId()) {
                 serviciosProyecto.add(servicio);
             }

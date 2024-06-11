@@ -31,4 +31,12 @@ public class Fotografia extends Servicio{
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
+
+    @Override
+    public String toString() {
+        return "Fotografia{" +
+                "cantidadFotos=" + cantidadFotos +
+                ", tipo='" + tipo + '\'' +
+                "} " + super.toString();
+    }
 }

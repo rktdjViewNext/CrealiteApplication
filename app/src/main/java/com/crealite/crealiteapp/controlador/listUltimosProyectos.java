@@ -1,6 +1,7 @@
 package com.crealite.crealiteapp.controlador;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +13,15 @@ import androidx.annotation.Nullable;
 
 import com.crealite.crealiteapp.R;
 import com.crealite.crealiteapp.modelo.Proyecto;
+import com.crealite.crealiteapp.vista.ProyectViewActivity;
 
 import java.util.ArrayList;
 
 public class listUltimosProyectos extends ArrayAdapter<Proyecto> {
+    private Context context;
     public listUltimosProyectos(@NonNull Context context, ArrayList<Proyecto> proyectos) {
         super(context, R.layout.list_item_ultimos_proyectos, proyectos);
+        this.context = context;
     }
 
     @NonNull
@@ -32,6 +36,16 @@ public class listUltimosProyectos extends ArrayAdapter<Proyecto> {
 
         TextView tipoServicio = convertView.findViewById(R.id.tipoServicioItem);
         TextView fechaServicio = convertView.findViewById(R.id.txtNumServicios);
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ProyectViewActivity.class);
+                intent.putExtra(Constantes.EXTRA_PRYECTO,p);
+                intent.putExtra("VERDADERO",true);
+                context.startActivity(intent);
+            }
+        });
 
         if (p != null) {
             tipoServicio.setText(p.getNombre());

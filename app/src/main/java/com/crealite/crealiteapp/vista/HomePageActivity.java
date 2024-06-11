@@ -60,13 +60,13 @@ import java.util.List;
 public class HomePageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private ImageView fotoPerfil;
-    private TextView nombreUsuario, proyectosEnCurso;
+    private TextView nombreUsuario;
     private FloatingActionButton btnFotoPerfil;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
     private ListView lvUltimosProyecotos;
-    private AppCompatButton btnCrearProyecto1, btnCrearProyecto2;
+    private AppCompatButton btnCrearProyecto1, btnCrearProyecto2, btnVerProyectos;
     private Cliente cliente;
     private CRUD_Proyecto crudProyecto;
     private CRUD_Clientes crud_clientes;
@@ -108,6 +108,14 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
         btnCrearProyecto1.setOnClickListener(iniciarCrearProyectoListener());
         btnCrearProyecto2.setOnClickListener(iniciarCrearProyectoListener());
+        btnVerProyectos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomePageActivity.this,ListProyectsActivity.class);
+                intent.putExtra(Constantes.EXTRA_CLIENTE,cliente);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -140,8 +148,8 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         lvUltimosProyecotos = findViewById(R.id.lvUltimosProyectos);
         btnCrearProyecto1 = findViewById(R.id.btnRealizarProyecto);
         btnCrearProyecto2 = findViewById(R.id.btnRealizarProyecto2);
+        btnVerProyectos = findViewById(R.id.btnVerProyectos);
         nombreUsuario = findViewById(R.id.txtNombreUsuario);
-        proyectosEnCurso = findViewById(R.id.txtNumProyectosEncurso);
         crudProyecto = new CRUD_Proyecto();
         crud_clientes = new CRUD_Clientes();
         context = this;

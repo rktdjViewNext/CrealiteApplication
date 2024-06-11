@@ -12,8 +12,8 @@ public class Empleado extends Usuario {
     private List<Servicio> servicios;
 
     // Constructor
-    public Empleado(String usuario, String contraseña, String nombre, String apellidos, String telefono, String correo, LocalDate fechaNacimiento, boolean admin, String dni, double precioHora, List<Especialidad> especialidades, ArrayList<Servicio> servicios) {
-        super(usuario, contraseña, nombre, apellidos, telefono, correo, fechaNacimiento, admin);
+    public Empleado(int id,String usuario, String contraseña, String nombre, String apellidos, String telefono, String correo, LocalDate fechaNacimiento, boolean admin, String dni, double precioHora, byte [] foto) {
+        super(id,usuario, contraseña, nombre, apellidos, telefono, correo, fechaNacimiento, admin, foto);
         this.dni = dni;
         this.precioHora = precioHora;
         this.especialidades = especialidades;

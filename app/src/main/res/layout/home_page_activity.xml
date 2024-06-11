@@ -122,20 +122,6 @@
                     android:textSize="27sp"
                     tools:ignore="HardcodedText" />
 
-                <TextView
-                    android:id="@+id/txtNumProyectosEncurso"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    android:layout_marginTop="2dp"
-                    android:fontFamily="@font/roboto_light"
-                    android:gravity="center"
-                    android:letterSpacing="0.3"
-                    android:text="5 PROYECTOS EN CURSO"
-                    android:textColor="@color/white"
-                    android:textSize="15sp"
-                    tools:ignore="HardcodedText" />
-
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnRealizarProyecto"
                     style="@style/Widget.AppCompat.Button"

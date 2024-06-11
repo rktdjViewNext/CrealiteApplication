@@ -29,7 +29,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="297dp">
+            android:layout_height="310dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -73,7 +73,7 @@
                 <TextView
                     android:id="@+id/txtPresupuestoServicios"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="143dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
@@ -113,7 +113,7 @@
                 <TextView
                     android:id="@+id/txtPresupuestoEmpleados"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="165dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
@@ -139,7 +139,7 @@
                 android:layout_marginEnd="10dp"
                 android:fontFamily="@font/roboto_bold"
                 android:gravity="end"
-                android:text="SUBTOTAL : 1539€"
+                android:text="SUBTOTAL : 0€"
                 android:textColor="@color/orange"
                 android:textSize="12sp"
                 tools:ignore="HardcodedText" />
@@ -163,7 +163,7 @@
                 android:layout_marginEnd="10dp"
                 android:fontFamily="@font/roboto_bold"
                 android:gravity="end"
-                android:text="IVA : 1539€"
+                android:text="IVA : 0€"
                 android:textColor="@color/orange"
                 android:textSize="12sp"
                 tools:ignore="HardcodedText" />
@@ -177,6 +177,7 @@
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 tools:ignore="HardcodedText" />
+
             <TextView
                 android:id="@+id/txtPrecioTotal"
                 android:layout_width="wrap_content"
@@ -184,7 +185,7 @@
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/roboto_bold"
                 android:gravity="end"
-                android:text="TOTAL : 1539€"
+                android:text="TOTAL : 0€"
                 android:textColor="@color/orange"
                 android:textSize="12sp"
                 tools:ignore="HardcodedText" />

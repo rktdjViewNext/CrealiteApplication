@@ -18,10 +18,12 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import com.crealite.crealiteapp.R;
+import com.crealite.crealiteapp.controlador.CRUD_Empleado;
 import com.crealite.crealiteapp.controlador.CRUD_EstadoProyecto;
 import com.crealite.crealiteapp.controlador.CRUD_Proyecto;
 import com.crealite.crealiteapp.controlador.CRUD_Servicios;
 import com.crealite.crealiteapp.controlador.Constantes;
+import com.crealite.crealiteapp.modelo.Empleado;
 import com.crealite.crealiteapp.modelo.EstadoProyecto;
 import com.crealite.crealiteapp.modelo.Proyecto;
 import com.crealite.crealiteapp.modelo.Servicio;
@@ -43,14 +45,17 @@ public class ProyectViewActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private Fragmento1 fragmento1;
     private Fragmento2 fragmento2;
+    private  Fragmento3 fragmento3;
     private TextView tvNombreProyecto;
     private Proyecto proyecto;
     private CRUD_Servicios crudServicios;
     private CRUD_EstadoProyecto crudEstadoProyecto;
+    private CRUD_Empleado crudEmpleado;
     private CRUD_Proyecto crudProyecto;
     private ImageButton btnBack;
     private Button btnPagar;
-    boolean bandera;
+    private boolean bandera;
+
 
 
     @Override
@@ -67,14 +72,17 @@ public class ProyectViewActivity extends AppCompatActivity {
         if(extras != null){
             proyecto = (Proyecto) extras.get(Constantes.EXTRA_PRYECTO);
             bandera = extras.getBoolean("VERDADERO");
-            System.out.println(bandera);
         }
 
         //configurarBotonPagar();
 
         crudServicios.obtenerTodosServicios((success, servicios) -> {
             fragmento1.setServicios(crudServicios.listarServiciosProyecto(proyecto));
+            fragmento3.setServicios(crudServicios.listarServiciosProyecto(proyecto));
+            fragmento3.setProyecto(proyecto);
             configurarBotonPagar(proyecto);
+
+
             crudEstadoProyecto.obtenerEstadosProyecto(estadosProyectos -> {
                 fragmento2.setProcesosProyectos(crudEstadoProyecto.searchEstadoProyecto(proyecto));
                 asignarFragmentosATabLayout();
@@ -91,6 +99,7 @@ public class ProyectViewActivity extends AppCompatActivity {
                 if(bandera){
                     Intent intent = new Intent(ProyectViewActivity.this, HomePageActivity.class);
                     intent.putExtra(Constantes.EXTRA_CLIENTE,proyecto.getCliente());
+                    intent.putExtra("VERDADERO",true);
                     startActivity(intent);
                 }else{
                     getOnBackPressedDispatcher().onBackPressed();
@@ -124,7 +133,9 @@ public class ProyectViewActivity extends AppCompatActivity {
                             crudEstadoProyecto.cambiarEstadoPagado(proyecto, new CRUD_EstadoProyecto.ResponseCallback() {
                                 @Override
                                 public void onComplete(List<EstadoProyecto> estadosProyectos) {
-
+                                    Intent intent = new Intent(ProyectViewActivity.this, ProyectViewActivity.class);
+                                    intent.putExtra(Constantes.EXTRA_PRYECTO,proyecto);
+                                    startActivity(intent);
                                 }
                             });
                         }
@@ -155,7 +166,7 @@ public class ProyectViewActivity extends AppCompatActivity {
         VPAdapter vpAdapter = new VPAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         vpAdapter.addFrament( fragmento1,"Servicios");
         vpAdapter.addFrament( fragmento2, "Proceso");
-        vpAdapter.addFrament( new Fragmento3(),"Presupuesto");
+        vpAdapter.addFrament( fragmento3,"Presupuesto");
 
         viewPager.setAdapter(vpAdapter);
     }
@@ -168,8 +179,10 @@ public class ProyectViewActivity extends AppCompatActivity {
         tvNombreProyecto = findViewById(R.id.txtNombreProyecto);
         crudServicios = new CRUD_Servicios();
         fragmento2 = new Fragmento2();
+        fragmento3 = new Fragmento3();
         crudEstadoProyecto = new CRUD_EstadoProyecto();
         crudProyecto = new CRUD_Proyecto();
+        crudEmpleado = new CRUD_Empleado();
         btnBack = findViewById(R.id.btnBack);
         btnPagar= findViewById(R.id.btnPagar);
         bandera = false;
@@ -181,10 +194,5 @@ public class ProyectViewActivity extends AppCompatActivity {
 
     }
 
-    private String sacarDetallesServicios(){
-        StringBuilder detallesServicios = new StringBuilder();
-        return null;
-
-    }
 
 }

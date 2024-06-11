@@ -134,7 +134,15 @@ public class CRUD_Proyecto {
                                 String nombre = proyectoJson.getString("nombre");
 
                                 boolean pagado = proyectoJson.getInt("pagado") == 1;
-                                int clienteId = proyectoJson.getInt("cliente_id");
+                                int clienteId = 0 ;
+                               try {
+                                   clienteId = proyectoJson.getInt("cliente_id");
+                               }catch (Exception e){
+
+                               }
+
+
+
                                 boolean finalizado = proyectoJson.getInt("finalizado") == 1;
 
                                 JSONObject presupuestoJson = proyectoJson.getJSONObject("presupuesto");
@@ -272,7 +280,7 @@ public class CRUD_Proyecto {
         ArrayList<Proyecto>proyectosPagados = new ArrayList<>();
         for (Proyecto p:proyectos
              ) {
-            if (p.getCliente().getId() == cliente.getId()){
+            if (p.getCliente() != null && p.getCliente().getId() == cliente.getId()){
                 if (p.isPagado()){
                     proyectosPagados.add(p);
                 }
@@ -286,7 +294,7 @@ public class CRUD_Proyecto {
         ArrayList<Proyecto>proyectosPagados = new ArrayList<>();
         for (Proyecto p:proyectos
         ) {
-            if (p.getCliente().getId() == cliente.getId()){
+            if (p.getCliente() != null && p.getCliente().getId() == cliente.getId()){
                 if (p.getFinalizado()){
                     proyectosPagados.add(p);
                 }
@@ -321,15 +329,10 @@ public class CRUD_Proyecto {
         ArrayList<Proyecto>proyectosClientes = new ArrayList<>();
 
         for (Proyecto p: proyectos){
-            System.out.println(p);
-            if (p.getCliente().getId() == c.getId()){
+
+            if (p.getCliente() != null && p.getCliente().getId() == c.getId()){
                 proyectosClientes.add(p);
             }
-        }
-
-        for (Proyecto p:proyectosClientes
-             ) {
-            System.out.println("ESTOS SON MIS PROYECTOS" + p);
         }
 
         return proyectosClientes;
@@ -339,7 +342,8 @@ public class CRUD_Proyecto {
         ArrayList<Proyecto>proyectosClientes = new ArrayList<>();
         int contador = 0;
         for (int i = proyectos.size()-1; i >= 0 ; i--) {
-            if (proyectos.get(i).getCliente().getId() == c.getId()){
+
+            if (proyectos.get(i).getCliente() != null && proyectos.get(i).getCliente().getId() == c.getId()){
                 proyectosClientes.add(proyectos.get(i));
                 contador++;
                 if (contador == 6){

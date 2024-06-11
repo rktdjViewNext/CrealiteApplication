@@ -149,8 +149,6 @@ public class CRUD_Clientes {
         }.execute();
     }
 
-
-
     @SuppressLint("StaticFieldLeak")
     public void insertarCliente(JSONObject jsonParam, final ResponseCallback callback) {
         new AsyncTask<Void, Void, Boolean>() {

@@ -43,4 +43,13 @@ public class Diseno extends Servicio{
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
+
+    @Override
+    public String toString() {
+        return "Diseno{" +
+                "dimensiones='" + dimensiones + '\'' +
+                ", animado=" + animado +
+                ", tipo='" + tipo + '\'' +
+                "} " + super.toString();
+    }
 }
